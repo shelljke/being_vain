@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace dr
@@ -14,6 +12,7 @@ namespace dr
     {
         string davl, im, card, hol, sahar, kurenie, stomatolog;
         string davl_z = "", im_z = "", card_z = "", hol_z = "", sahar_z = "", kurenie_z = "", ivz_z = "", risk;
+        string rec, zak, priglas;
         string otkloneniya;
         public int chss, chss_n, chss_r;
 
@@ -43,30 +42,35 @@ namespace dr
                 otkloneniya = "Функцианальных отклонений нет.";
             }
             else otkloneniya = "Имеются функциональные отклонения. ";
-            string rec = "";
+            rec = "";
             rec = stomatolog + im + davl + card + hol + sahar + kurenie;
-            string zak = "";
+            zak = "";
             zak = otkloneniya + im_z + davl_z + card_z + hol_z + sahar_z + kurenie_z + ivz_z+risk;
-            recommended.Text = rec;
-            zakl.Text = zak;
+          //  recommended.Text = rec;
+          //  zakl.Text = zak;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string txt = recommended.Text;
-            Clipboard.SetText(txt);
+            Clipboard.SetText(rec);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string txt1 = zakl.Text;
-            Clipboard.SetText(txt1);
+            Clipboard.SetText(zak);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string txt2 = priglas.Text;
-            Clipboard.SetText(txt2);
+
+            Clipboard.SetText(priglas);
+        }
+
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //string txt2 = priglas.Text;
+            //Clipboard.SetText(txt2);
         }
 
         private void age_ValueChanged(object sender, EventArgs e)
@@ -269,7 +273,7 @@ namespace dr
 
         private void norm_c_CheckedChanged(object sender, EventArgs e)
         {
-            priglas.Text = "Приглашен в Центр Здоровья в 2015 году.";
+            priglas = "Приглашен в Центр Здоровья в 2015 году.";
             card = "";
             card_z = "";
             result();
@@ -279,21 +283,21 @@ namespace dr
         {
             if (cardio_.Value < 15)
             {
-                priglas.Text = "Приглашен в Центр Здоровья в 2015 году.";
+                priglas = "Приглашен в Центр Здоровья в 2015 году.";
                 card = "";
                 card_z = "";
                 result();
             }
             if (cardio_.Value >= 15 & cardio_.Value < 23)
             {
-                priglas.Text = "Приглашен в Центр Здоровья в 2015 году.";
+                priglas = "Приглашен в Центр Здоровья в 2015 году.";
                 card = System.Environment.NewLine + System.Environment.NewLine + "Консультация кардиолога (по данным кардиовизора выявлены изменения, требующие дообследования). ";
                 card_z = System.Environment.NewLine + "По данным кардиовизора «пограничное состояние» (" + cardio_.Value.ToString() + "%).";
                 result();
             }
             if (cardio_.Value >= 23)
             {
-                priglas.Text = "Приглашен в Центр Здоровья для повторного обследования на кардиовизоре через 1 месяц.";
+                priglas = "Приглашен в Центр Здоровья для повторного обследования на кардиовизоре через 1 месяц.";
                 card = System.Environment.NewLine + System.Environment.NewLine + "Консультация кардиолога (по данным кардиовизора выявлены изменения, требующие дообследования). ";
                 card_z = System.Environment.NewLine + "По данным кардиовизора «значимое отклонение» (" + cardio_.Value.ToString() + "%).";
                 result();
@@ -402,17 +406,16 @@ namespace dr
                 sahar_z = System.Environment.NewLine + "Гипергликемия (" + sugar.ToString() + ").";
                 result();
             } 
-            zakl.Refresh();
+           
             result();
         }
 
         private void zuby_CheckedChanged(object sender, EventArgs e)
         {
-            if (zuby.Checked==false)
+            if (zuby.Checked==true)
             {
 stomatolog= "Проведено обучение стандартному методу чистки зубов. Даны рекомендации по выбору средств оральной гигиены. Рекомендовано: санация полости рта, осмотр у стоматолога 1 раз в 6 месяцев." + System.Environment.NewLine + System.Environment.NewLine;      
-            } 
-            if (zuby.Checked==true)
+            } else
             {
 stomatolog= "Проведено обучение стандартному методу чистки зубов. Даны рекомендации по выбору средств оральной гигиены. Рекомендовано: осмотр у стоматолога 1 раз в 6 месяцев." + System.Environment.NewLine + System.Environment.NewLine;      
             }

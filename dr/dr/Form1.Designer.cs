@@ -49,13 +49,8 @@
             this.mid_s = new System.Windows.Forms.RadioButton();
             this.light_s = new System.Windows.Forms.RadioButton();
             this.norm_s = new System.Windows.Forms.RadioButton();
-            this.recommended = new System.Windows.Forms.TextBox();
-            this.recomm = new System.Windows.Forms.Label();
-            this.zakl = new System.Windows.Forms.TextBox();
-            this.diagnoz = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.priglas = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.cardio_ = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,6 +62,12 @@
             this.clear_s = new System.Windows.Forms.Button();
             this.clear_ho = new System.Windows.Forms.Button();
             this.zuby = new System.Windows.Forms.CheckBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.age)).BeginInit();
             this.bar.SuspendLayout();
             this.imd.SuspendLayout();
@@ -76,9 +77,9 @@
             // 
             // age
             // 
-            this.age.Location = new System.Drawing.Point(211, 25);
+            this.age.Location = new System.Drawing.Point(197, 25);
             this.age.Name = "age";
-            this.age.Size = new System.Drawing.Size(200, 20);
+            this.age.Size = new System.Drawing.Size(157, 20);
             this.age.TabIndex = 0;
             this.age.ValueChanged += new System.EventHandler(this.age_ValueChanged);
             this.age.Click += new System.EventHandler(this.age_Click);
@@ -87,7 +88,7 @@
             // 
             this.age_l.AutoSize = true;
             this.age_l.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.age_l.Location = new System.Drawing.Point(208, 9);
+            this.age_l.Location = new System.Drawing.Point(197, 9);
             this.age_l.Name = "age_l";
             this.age_l.Size = new System.Drawing.Size(60, 13);
             this.age_l.TabIndex = 1;
@@ -113,7 +114,7 @@
             this.bar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.bar.Location = new System.Drawing.Point(9, 10);
             this.bar.Name = "bar";
-            this.bar.Size = new System.Drawing.Size(193, 69);
+            this.bar.Size = new System.Drawing.Size(178, 69);
             this.bar.TabIndex = 6;
             this.bar.TabStop = false;
             this.bar.Text = "Давление";
@@ -164,7 +165,7 @@
             this.imd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.imd.Location = new System.Drawing.Point(9, 85);
             this.imd.Name = "imd";
-            this.imd.Size = new System.Drawing.Size(193, 182);
+            this.imd.Size = new System.Drawing.Size(178, 182);
             this.imd.TabIndex = 9;
             this.imd.TabStop = false;
             this.imd.Text = "ИМД";
@@ -269,7 +270,7 @@
             this.smoke.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.smoke.Location = new System.Drawing.Point(9, 273);
             this.smoke.Name = "smoke";
-            this.smoke.Size = new System.Drawing.Size(193, 109);
+            this.smoke.Size = new System.Drawing.Size(177, 109);
             this.smoke.TabIndex = 10;
             this.smoke.TabStop = false;
             this.smoke.Text = "Курение";
@@ -325,54 +326,15 @@
             this.norm_s.UseVisualStyleBackColor = true;
             this.norm_s.CheckedChanged += new System.EventHandler(this.norm_s_CheckedChanged);
             // 
-            // recommended
-            // 
-            this.recommended.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.recommended.Location = new System.Drawing.Point(417, 26);
-            this.recommended.Multiline = true;
-            this.recommended.Name = "recommended";
-            this.recommended.ReadOnly = true;
-            this.recommended.Size = new System.Drawing.Size(239, 325);
-            this.recommended.TabIndex = 12;
-            // 
-            // recomm
-            // 
-            this.recomm.AutoSize = true;
-            this.recomm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.recomm.Location = new System.Drawing.Point(414, 10);
-            this.recomm.Name = "recomm";
-            this.recomm.Size = new System.Drawing.Size(98, 13);
-            this.recomm.TabIndex = 1;
-            this.recomm.Text = "Рекомендации:";
-            // 
-            // zakl
-            // 
-            this.zakl.Location = new System.Drawing.Point(662, 26);
-            this.zakl.Multiline = true;
-            this.zakl.Name = "zakl";
-            this.zakl.ReadOnly = true;
-            this.zakl.Size = new System.Drawing.Size(245, 262);
-            this.zakl.TabIndex = 12;
-            // 
-            // diagnoz
-            // 
-            this.diagnoz.AutoSize = true;
-            this.diagnoz.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.diagnoz.Location = new System.Drawing.Point(659, 10);
-            this.diagnoz.Name = "diagnoz";
-            this.diagnoz.Size = new System.Drawing.Size(83, 13);
-            this.diagnoz.TabIndex = 1;
-            this.diagnoz.Text = "Заключение:";
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.MediumAquamarine;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(417, 354);
+            this.button1.Location = new System.Drawing.Point(194, 329);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(239, 23);
+            this.button1.Size = new System.Drawing.Size(160, 23);
             this.button1.TabIndex = 13;
-            this.button1.Text = "Копировать в буфер";
+            this.button1.Text = "Копировать рекомендации";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -380,39 +342,31 @@
             // 
             this.button2.BackColor = System.Drawing.Color.MediumAquamarine;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(662, 294);
+            this.button2.Location = new System.Drawing.Point(194, 220);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(245, 23);
+            this.button2.Size = new System.Drawing.Size(160, 23);
             this.button2.TabIndex = 13;
-            this.button2.Text = "Копировать в буфер";
+            this.button2.Text = "Копировать отклонения";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // priglas
-            // 
-            this.priglas.Location = new System.Drawing.Point(662, 323);
-            this.priglas.Name = "priglas";
-            this.priglas.ReadOnly = true;
-            this.priglas.Size = new System.Drawing.Size(245, 20);
-            this.priglas.TabIndex = 14;
             // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.MediumAquamarine;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(662, 354);
+            this.button3.Location = new System.Drawing.Point(194, 358);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(245, 23);
+            this.button3.Size = new System.Drawing.Size(160, 23);
             this.button3.TabIndex = 13;
-            this.button3.Text = "Копировать в буфер";
+            this.button3.Text = "Копировать выполнение";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // cardio_
             // 
-            this.cardio_.Location = new System.Drawing.Point(211, 71);
+            this.cardio_.Location = new System.Drawing.Point(197, 64);
             this.cardio_.Name = "cardio_";
-            this.cardio_.Size = new System.Drawing.Size(174, 20);
+            this.cardio_.Size = new System.Drawing.Size(131, 20);
             this.cardio_.TabIndex = 0;
             this.cardio_.Value = new decimal(new int[] {
             1,
@@ -426,7 +380,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(208, 55);
+            this.label1.Location = new System.Drawing.Point(197, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 13);
             this.label1.TabIndex = 1;
@@ -436,7 +390,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(208, 151);
+            this.label2.Location = new System.Drawing.Point(197, 126);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
@@ -446,7 +400,7 @@
             // 
             this.asd.AutoSize = true;
             this.asd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.asd.Location = new System.Drawing.Point(208, 107);
+            this.asd.Location = new System.Drawing.Point(197, 87);
             this.asd.Name = "asd";
             this.asd.Size = new System.Drawing.Size(81, 13);
             this.asd.TabIndex = 1;
@@ -454,20 +408,20 @@
             // 
             // sahar_
             // 
-            this.sahar_.Location = new System.Drawing.Point(211, 167);
+            this.sahar_.Location = new System.Drawing.Point(197, 142);
             this.sahar_.Mask = "0.0";
             this.sahar_.Name = "sahar_";
-            this.sahar_.Size = new System.Drawing.Size(174, 20);
+            this.sahar_.Size = new System.Drawing.Size(131, 20);
             this.sahar_.TabIndex = 15;
             this.sahar_.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sahar__MouseClick);
             this.sahar_.TextChanged += new System.EventHandler(this.sahar__TextChanged_1);
             // 
             // holest_
             // 
-            this.holest_.Location = new System.Drawing.Point(211, 124);
+            this.holest_.Location = new System.Drawing.Point(197, 103);
             this.holest_.Mask = "0.0";
             this.holest_.Name = "holest_";
-            this.holest_.Size = new System.Drawing.Size(174, 20);
+            this.holest_.Size = new System.Drawing.Size(131, 20);
             this.holest_.TabIndex = 16;
             this.holest_.Click += new System.EventHandler(this.holest__Click);
             this.holest_.TextChanged += new System.EventHandler(this.holest__TextChanged);
@@ -477,7 +431,7 @@
             this.clear_card.BackgroundImage = global::dr.Properties.Resources.w128h1281338911337cross;
             this.clear_card.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.clear_card.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.clear_card.Location = new System.Drawing.Point(391, 71);
+            this.clear_card.Location = new System.Drawing.Point(334, 64);
             this.clear_card.Name = "clear_card";
             this.clear_card.Size = new System.Drawing.Size(20, 20);
             this.clear_card.TabIndex = 17;
@@ -489,7 +443,7 @@
             this.clear_s.BackgroundImage = global::dr.Properties.Resources.w128h1281338911337cross;
             this.clear_s.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.clear_s.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.clear_s.Location = new System.Drawing.Point(391, 166);
+            this.clear_s.Location = new System.Drawing.Point(334, 141);
             this.clear_s.Name = "clear_s";
             this.clear_s.Size = new System.Drawing.Size(20, 20);
             this.clear_s.TabIndex = 17;
@@ -501,7 +455,7 @@
             this.clear_ho.BackgroundImage = global::dr.Properties.Resources.w128h1281338911337cross;
             this.clear_ho.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.clear_ho.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.clear_ho.Location = new System.Drawing.Point(391, 124);
+            this.clear_ho.Location = new System.Drawing.Point(334, 103);
             this.clear_ho.Name = "clear_ho";
             this.clear_ho.Size = new System.Drawing.Size(20, 20);
             this.clear_ho.TabIndex = 17;
@@ -511,36 +465,94 @@
             // zuby
             // 
             this.zuby.AutoSize = true;
-            this.zuby.Location = new System.Drawing.Point(211, 197);
+            this.zuby.Location = new System.Drawing.Point(197, 167);
             this.zuby.Name = "zuby";
-            this.zuby.Size = new System.Drawing.Size(105, 17);
+            this.zuby.Size = new System.Drawing.Size(157, 17);
             this.zuby.TabIndex = 18;
-            this.zuby.Text = "Здоровые зубы";
+            this.zuby.Text = "Заболевание полости рта";
             this.zuby.UseVisualStyleBackColor = true;
             this.zuby.CheckedChanged += new System.EventHandler(this.zuby_CheckedChanged);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(194, 300);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(160, 23);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "Копировать заключение";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(194, 249);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(32, 37);
+            this.button5.TabIndex = 19;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(226, 249);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(32, 37);
+            this.button6.TabIndex = 19;
+            this.button6.Text = "button5";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(290, 249);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(32, 37);
+            this.button7.TabIndex = 19;
+            this.button7.Text = "button5";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(322, 249);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(32, 37);
+            this.button8.TabIndex = 19;
+            this.button8.Text = "button5";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(258, 249);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(32, 37);
+            this.button9.TabIndex = 19;
+            this.button9.Text = "button5";
+            this.button9.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 393);
+            this.ClientSize = new System.Drawing.Size(360, 393);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.zuby);
             this.Controls.Add(this.clear_ho);
             this.Controls.Add(this.clear_s);
             this.Controls.Add(this.clear_card);
             this.Controls.Add(this.holest_);
             this.Controls.Add(this.sahar_);
-            this.Controls.Add(this.priglas);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.zakl);
-            this.Controls.Add(this.recommended);
             this.Controls.Add(this.smoke);
             this.Controls.Add(this.imd);
             this.Controls.Add(this.bar);
-            this.Controls.Add(this.diagnoz);
-            this.Controls.Add(this.recomm);
             this.Controls.Add(this.asd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -586,13 +598,8 @@
         private System.Windows.Forms.RadioButton mid_s;
         private System.Windows.Forms.RadioButton light_s;
         private System.Windows.Forms.RadioButton norm_s;
-        private System.Windows.Forms.TextBox recommended;
-        private System.Windows.Forms.Label recomm;
-        private System.Windows.Forms.TextBox zakl;
-        private System.Windows.Forms.Label diagnoz;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox priglas;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.NumericUpDown cardio_;
         private System.Windows.Forms.Label label1;
@@ -604,6 +611,12 @@
         private System.Windows.Forms.Button clear_s;
         private System.Windows.Forms.Button clear_ho;
         private System.Windows.Forms.CheckBox zuby;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }
 
