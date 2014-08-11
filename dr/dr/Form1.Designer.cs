@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.nud_age = new System.Windows.Forms.NumericUpDown();
             this.l_age = new System.Windows.Forms.Label();
             this.rb_pressureNorm = new System.Windows.Forms.RadioButton();
@@ -394,26 +395,30 @@
             // 
             // tl_sugar
             // 
-            this.tl_sugar.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.tl_sugar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tl_sugar.Location = new System.Drawing.Point(197, 142);
             this.tl_sugar.Mask = "0.0";
             this.tl_sugar.Name = "tl_sugar";
-            this.tl_sugar.PromptChar = '8';
+            this.tl_sugar.PromptChar = '0';
+            this.tl_sugar.RejectInputOnFirstFailure = true;
             this.tl_sugar.Size = new System.Drawing.Size(131, 20);
             this.tl_sugar.TabIndex = 15;
-            this.tl_sugar.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            this.tl_sugar.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.tl_sugar_MaskInputRejected);
+            this.tl_sugar.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.tl_sugar.Click += new System.EventHandler(this.tl_sugar_Click);
+            this.tl_sugar.Leave += new System.EventHandler(this.tl_sugar_Leave);
             // 
             // tl_cholesterol
             // 
+            this.tl_cholesterol.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
             this.tl_cholesterol.Location = new System.Drawing.Point(197, 103);
             this.tl_cholesterol.Mask = "0.0";
             this.tl_cholesterol.Name = "tl_cholesterol";
+            this.tl_cholesterol.PromptChar = '0';
             this.tl_cholesterol.Size = new System.Drawing.Size(131, 20);
             this.tl_cholesterol.TabIndex = 16;
+            this.tl_cholesterol.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.tl_cholesterol.Click += new System.EventHandler(this.tl_cholesterol_Click);
-            this.tl_cholesterol.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tl_cholesterol_KeyPress);
+            this.tl_cholesterol.Leave += new System.EventHandler(this.tl_cholesterol_Leave);
             // 
             // b_cardiovisorClear
             // 
@@ -560,9 +565,14 @@
             this.Controls.Add(this.nud_cardiovisor);
             this.Controls.Add(this.l_age);
             this.Controls.Add(this.nud_age);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.Opacity = 0.95D;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Dr. Helper";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.nud_age)).EndInit();
             this.gp_pressure.ResumeLayout(false);
             this.gp_pressure.PerformLayout();
