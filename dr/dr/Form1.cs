@@ -16,10 +16,10 @@ namespace dr
         //abnormalities - отклонения
 
         string conclusion, risk_c;
-        string recommendations, weight_r, pressure_r, cardiovisor_r, cholesterol_r, sugar_r, smoking_r, teeth_r, BMI_r;
+        string recommendations, pressure_r, cardiovisor_r, cholesterol_r, sugar_r, smoking_r, teeth_r, BMI_r;
         string effectuation;
 
-        string abnormalities, pressure_a, weight_a, BMI_a, cardiovisor_a="", cholesterol_a="", sugar_a="", smoking_a;
+        string abnormalities, pressure_a, BMI_a, cardiovisor_a="", cholesterol_a="", sugar_a="", smoking_a;
         public int chss, chss_n, chss_r;
 
         public Form1()
@@ -220,12 +220,16 @@ namespace dr
 
         private void nud_age_ValueChanged(object sender, EventArgs e)
         {
+            resetColors();
+            
+        }
+        private void nud_age_Leave(object sender, EventArgs e)
+        {
             chss = (int)(220 - nud_age.Value);
             Random rnd = new Random();
             chss_n = rnd.Next(111, 139) - (int)(nud_age.Value) / 4;
             chss_r = chss_n - chss_n / 20;
         }
-
         private void nud_age_Click(object sender, EventArgs e)
         {
             nud_age.Select(0, nud_age.Text.Length);
@@ -235,7 +239,7 @@ namespace dr
         //кардиовизор
         //
 
-        private void nud_cardiovisor_ValueChanged(object sender, EventArgs e)
+        private void nud_cardiovisor_Leave(object sender, EventArgs e)
         {
             if (nud_cardiovisor.Value < 15)
             {
@@ -256,7 +260,10 @@ namespace dr
                 cardiovisor_a = System.Environment.NewLine + "По данным кардиовизора «значимое отклонение» (" + nud_cardiovisor.Value.ToString() + "%).";
             }
         }
-
+        private void nud_cardiovisor_ValueChanged(object sender, EventArgs e)
+        {
+            resetColors();
+        }
         private void nud_cardiovisor_Click(object sender, EventArgs e)
         {
             nud_cardiovisor.Select(0, nud_cardiovisor.Text.Length);
@@ -291,7 +298,10 @@ namespace dr
                 cholesterol_a = System.Environment.NewLine + "Гипрехолестеринемия (" + cholesterol_v.ToString() + ").";
             }
         }
-
+        private void tl_cholesterol_TextChanged(object sender, EventArgs e)
+        {
+            resetColors();
+        }
         private void tl_cholesterol_Click(object sender, EventArgs e)
         {
             tl_cholesterol.Select(0, 3);
@@ -328,11 +338,10 @@ namespace dr
             }
             
         }
-        private void tl_sugar_TextChanged(object sender, EventArgs e)
+        private void tl_sugar_TextChanged_1(object sender, EventArgs e)
         {
-
+            resetColors();
         }
-
         private void tl_sugar_Click(object sender, EventArgs e)
         {
             tl_sugar.Select(0, 3);
@@ -350,6 +359,7 @@ namespace dr
 
         private void rb_teeth_CheckedChanged(object sender, EventArgs e)
         {
+            resetColors();
             if (rb_teeth.Checked == true)
             {
                 teeth_r = "Проведено обучение стандартному методу чистки зубов. Даны рекомендации по выбору средств оральной гигиены. Рекомендовано: санация полости рта, осмотр у стоматолога 1 раз в 6 месяцев." + System.Environment.NewLine + System.Environment.NewLine;
@@ -359,7 +369,6 @@ namespace dr
                 teeth_r = "Проведено обучение стандартному методу чистки зубов. Даны рекомендации по выбору средств оральной гигиены. Рекомендовано: осмотр у стоматолога 1 раз в 6 месяцев." + System.Environment.NewLine + System.Environment.NewLine;
             }
         }
-
 
         private void b_abnormalities_Click(object sender, EventArgs e)
         {
@@ -405,6 +414,7 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
         }
 
+        
     }
 }
 

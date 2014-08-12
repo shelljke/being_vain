@@ -84,6 +84,7 @@
             this.nud_age.TabIndex = 0;
             this.nud_age.ValueChanged += new System.EventHandler(this.nud_age_ValueChanged);
             this.nud_age.Click += new System.EventHandler(this.nud_age_Click);
+            this.nud_age.Leave += new System.EventHandler(this.nud_age_Leave);
             // 
             // l_age
             // 
@@ -362,6 +363,7 @@
             0});
             this.nud_cardiovisor.ValueChanged += new System.EventHandler(this.nud_cardiovisor_ValueChanged);
             this.nud_cardiovisor.Click += new System.EventHandler(this.nud_cardiovisor_Click);
+            this.nud_cardiovisor.Leave += new System.EventHandler(this.nud_cardiovisor_Leave);
             // 
             // l_cardiovisor
             // 
@@ -405,6 +407,7 @@
             this.tl_sugar.TabIndex = 15;
             this.tl_sugar.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.tl_sugar.Click += new System.EventHandler(this.tl_sugar_Click);
+            this.tl_sugar.TextChanged += new System.EventHandler(this.tl_sugar_TextChanged_1);
             this.tl_sugar.Leave += new System.EventHandler(this.tl_sugar_Leave);
             // 
             // tl_cholesterol
@@ -418,6 +421,7 @@
             this.tl_cholesterol.TabIndex = 16;
             this.tl_cholesterol.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.tl_cholesterol.Click += new System.EventHandler(this.tl_cholesterol_Click);
+            this.tl_cholesterol.TextChanged += new System.EventHandler(this.tl_cholesterol_TextChanged);
             this.tl_cholesterol.Leave += new System.EventHandler(this.tl_cholesterol_Leave);
             // 
             // b_cardiovisorClear
