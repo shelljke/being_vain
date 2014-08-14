@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.nud_age = new System.Windows.Forms.NumericUpDown();
             this.l_age = new System.Windows.Forms.Label();
             this.rb_pressureNorm = new System.Windows.Forms.RadioButton();
             this.gp_pressure = new System.Windows.Forms.GroupBox();
@@ -52,7 +51,6 @@
             this.rb_smokingNorm = new System.Windows.Forms.RadioButton();
             this.b_recommendations = new System.Windows.Forms.Button();
             this.b_abnormalities = new System.Windows.Forms.Button();
-            this.nud_cardiovisor = new System.Windows.Forms.NumericUpDown();
             this.l_cardiovisor = new System.Windows.Forms.Label();
             this.l_sugar = new System.Windows.Forms.Label();
             this.l_cholesterol = new System.Windows.Forms.Label();
@@ -69,23 +67,12 @@
             this.b_impedanceCopy = new System.Windows.Forms.Button();
             this.b_smokingCopy = new System.Windows.Forms.Button();
             this.b_effectuation = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_age)).BeginInit();
+            this.mtb_cardiovisor = new System.Windows.Forms.MaskedTextBox();
+            this.mtb_age = new System.Windows.Forms.MaskedTextBox();
             this.gp_pressure.SuspendLayout();
             this.gp_BMI.SuspendLayout();
             this.gp_smoking.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_cardiovisor)).BeginInit();
             this.SuspendLayout();
-            // 
-            // nud_age
-            // 
-            this.nud_age.Location = new System.Drawing.Point(197, 25);
-            this.nud_age.Name = "nud_age";
-            this.nud_age.Size = new System.Drawing.Size(157, 20);
-            this.nud_age.TabIndex = 0;
-            this.nud_age.ValueChanged += new System.EventHandler(this.nud_age_ValueChanged);
-            this.nud_age.Click += new System.EventHandler(this.nud_age_Click);
-            this.nud_age.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nud_age_KeyDown);
-            this.nud_age.Leave += new System.EventHandler(this.nud_age_Leave);
             // 
             // l_age
             // 
@@ -171,7 +158,6 @@
             this.gp_BMI.TabIndex = 9;
             this.gp_BMI.TabStop = false;
             this.gp_BMI.Text = "ИМД";
-
             // 
             // rb_BMIFour
             // 
@@ -351,20 +337,6 @@
             this.b_abnormalities.Text = "Копировать отклонения";
             this.b_abnormalities.UseVisualStyleBackColor = false;
             this.b_abnormalities.Click += new System.EventHandler(this.b_abnormalities_Click);
-            // 
-            // nud_cardiovisor
-            // 
-            this.nud_cardiovisor.Location = new System.Drawing.Point(197, 64);
-            this.nud_cardiovisor.Name = "nud_cardiovisor";
-            this.nud_cardiovisor.Size = new System.Drawing.Size(131, 20);
-            this.nud_cardiovisor.TabIndex = 0;
-            this.nud_cardiovisor.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_cardiovisor.ValueChanged += new System.EventHandler(this.nud_cardiovisor_ValueChanged);
-            this.nud_cardiovisor.Click += new System.EventHandler(this.nud_cardiovisor_Click);
             // 
             // l_cardiovisor
             // 
@@ -564,11 +536,39 @@
             this.b_effectuation.UseVisualStyleBackColor = false;
             this.b_effectuation.Click += new System.EventHandler(this.b_effectuation_Click);
             // 
+            // mtb_cardiovisor
+            // 
+            this.mtb_cardiovisor.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtb_cardiovisor.Location = new System.Drawing.Point(197, 63);
+            this.mtb_cardiovisor.Mask = "00";
+            this.mtb_cardiovisor.Name = "mtb_cardiovisor";
+            this.mtb_cardiovisor.PromptChar = '0';
+            this.mtb_cardiovisor.Size = new System.Drawing.Size(131, 20);
+            this.mtb_cardiovisor.TabIndex = 20;
+            this.mtb_cardiovisor.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtb_cardiovisor.Click += new System.EventHandler(this.mtb_cardiovisor_Click);
+            this.mtb_cardiovisor.TextChanged += new System.EventHandler(this.mtb_cardiovisor_TextChanged);
+            // 
+            // mtb_age
+            // 
+            this.mtb_age.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtb_age.Location = new System.Drawing.Point(197, 25);
+            this.mtb_age.Mask = "00";
+            this.mtb_age.Name = "mtb_age";
+            this.mtb_age.PromptChar = '0';
+            this.mtb_age.Size = new System.Drawing.Size(157, 20);
+            this.mtb_age.TabIndex = 21;
+            this.mtb_age.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtb_age.Click += new System.EventHandler(this.mtb_age_Click);
+            this.mtb_age.TextChanged += new System.EventHandler(this.mtb_age_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 393);
+            this.Controls.Add(this.mtb_age);
+            this.Controls.Add(this.mtb_cardiovisor);
             this.Controls.Add(this.b_impedanceCopy);
             this.Controls.Add(this.b_sugarCopy);
             this.Controls.Add(this.b_smokingCopy);
@@ -590,9 +590,7 @@
             this.Controls.Add(this.l_cholesterol);
             this.Controls.Add(this.l_sugar);
             this.Controls.Add(this.l_cardiovisor);
-            this.Controls.Add(this.nud_cardiovisor);
             this.Controls.Add(this.l_age);
-            this.Controls.Add(this.nud_age);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -601,14 +599,12 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Dr. Helper";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.nud_age)).EndInit();
             this.gp_pressure.ResumeLayout(false);
             this.gp_pressure.PerformLayout();
             this.gp_BMI.ResumeLayout(false);
             this.gp_BMI.PerformLayout();
             this.gp_smoking.ResumeLayout(false);
             this.gp_smoking.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_cardiovisor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -616,7 +612,6 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown nud_age;
         private System.Windows.Forms.Label l_age;
         private System.Windows.Forms.RadioButton rb_pressureNorm;
         private System.Windows.Forms.GroupBox gp_pressure;
@@ -639,7 +634,6 @@
         private System.Windows.Forms.RadioButton rb_smokingNorm;
         private System.Windows.Forms.Button b_recommendations;
         private System.Windows.Forms.Button b_abnormalities;
-        private System.Windows.Forms.NumericUpDown nud_cardiovisor;
         private System.Windows.Forms.Label l_cardiovisor;
         private System.Windows.Forms.Label l_sugar;
         private System.Windows.Forms.Label l_cholesterol;
@@ -656,6 +650,8 @@
         private System.Windows.Forms.Button b_impedanceCopy;
         private System.Windows.Forms.Button b_smokingCopy;
         private System.Windows.Forms.Button b_effectuation;
+        private System.Windows.Forms.MaskedTextBox mtb_cardiovisor;
+        private System.Windows.Forms.MaskedTextBox mtb_age;
     }
 }
 
