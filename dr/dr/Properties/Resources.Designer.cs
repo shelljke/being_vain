@@ -63,9 +63,59 @@ namespace dr.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap imped {
+            get {
+                object obj = ResourceManager.GetObject("imped", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap running_man_512 {
+            get {
+                object obj = ResourceManager.GetObject("running_man-512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sugar {
+            get {
+                object obj = ResourceManager.GetObject("sugar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tumblr_static_tumblr_static_heart_icon {
+            get {
+                object obj = ResourceManager.GetObject("tumblr_static_tumblr_static_heart-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap w128h1281338911337cross {
             get {
                 object obj = ResourceManager.GetObject("w128h1281338911337cross", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap w128h1281379971139pipe128 {
+            get {
+                object obj = ResourceManager.GetObject("w128h1281379971139pipe128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

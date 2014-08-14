@@ -63,11 +63,11 @@
             this.b_cholesterolClear = new System.Windows.Forms.Button();
             this.rb_teeth = new System.Windows.Forms.CheckBox();
             this.b_conclusion = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.b_BMICopy = new System.Windows.Forms.Button();
+            this.b_cardiovisorCopy = new System.Windows.Forms.Button();
+            this.b_sugarCopy = new System.Windows.Forms.Button();
+            this.b_impedanceCopy = new System.Windows.Forms.Button();
+            this.b_smokingCopy = new System.Windows.Forms.Button();
             this.b_effectuation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nud_age)).BeginInit();
             this.gp_pressure.SuspendLayout();
@@ -84,6 +84,7 @@
             this.nud_age.TabIndex = 0;
             this.nud_age.ValueChanged += new System.EventHandler(this.nud_age_ValueChanged);
             this.nud_age.Click += new System.EventHandler(this.nud_age_Click);
+            this.nud_age.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nud_age_KeyDown);
             this.nud_age.Leave += new System.EventHandler(this.nud_age_Leave);
             // 
             // l_age
@@ -170,6 +171,7 @@
             this.gp_BMI.TabIndex = 9;
             this.gp_BMI.TabStop = false;
             this.gp_BMI.Text = "ИМД";
+
             // 
             // rb_BMIFour
             // 
@@ -246,7 +248,7 @@
             this.rb_BMINorm.TabIndex = 15;
             this.rb_BMINorm.Text = "Норма (18-22)";
             this.rb_BMINorm.UseVisualStyleBackColor = true;
-            this.rb_BMINorm.CheckedChanged += new System.EventHandler(this.rb_BMINorm__CheckedChanged);
+            this.rb_BMINorm.CheckedChanged += new System.EventHandler(this.rb_BMINorm_CheckedChanged);
             // 
             // rb_BMIHigh
             // 
@@ -363,7 +365,6 @@
             0});
             this.nud_cardiovisor.ValueChanged += new System.EventHandler(this.nud_cardiovisor_ValueChanged);
             this.nud_cardiovisor.Click += new System.EventHandler(this.nud_cardiovisor_Click);
-            this.nud_cardiovisor.Leave += new System.EventHandler(this.nud_cardiovisor_Leave);
             // 
             // l_cardiovisor
             // 
@@ -408,7 +409,6 @@
             this.tl_sugar.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.tl_sugar.Click += new System.EventHandler(this.tl_sugar_Click);
             this.tl_sugar.TextChanged += new System.EventHandler(this.tl_sugar_TextChanged_1);
-            this.tl_sugar.Leave += new System.EventHandler(this.tl_sugar_Leave);
             // 
             // tl_cholesterol
             // 
@@ -422,7 +422,6 @@
             this.tl_cholesterol.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.tl_cholesterol.Click += new System.EventHandler(this.tl_cholesterol_Click);
             this.tl_cholesterol.TextChanged += new System.EventHandler(this.tl_cholesterol_TextChanged);
-            this.tl_cholesterol.Leave += new System.EventHandler(this.tl_cholesterol_Leave);
             // 
             // b_cardiovisorClear
             // 
@@ -483,50 +482,75 @@
             this.b_conclusion.UseVisualStyleBackColor = false;
             this.b_conclusion.Click += new System.EventHandler(this.b_conclusion_Click);
             // 
-            // button5
+            // b_BMICopy
             // 
-            this.button5.Location = new System.Drawing.Point(194, 249);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(32, 37);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            this.b_BMICopy.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.b_BMICopy.BackgroundImage = global::dr.Properties.Resources.running_man_512;
+            this.b_BMICopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_BMICopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b_BMICopy.Location = new System.Drawing.Point(194, 249);
+            this.b_BMICopy.Name = "b_BMICopy";
+            this.b_BMICopy.Size = new System.Drawing.Size(32, 31);
+            this.b_BMICopy.TabIndex = 19;
+            this.b_BMICopy.Text = " ";
+            this.b_BMICopy.UseVisualStyleBackColor = false;
+            this.b_BMICopy.Visible = false;
+            this.b_BMICopy.Click += new System.EventHandler(this.b_BMICopy_Click);
             // 
-            // button6
+            // b_cardiovisorCopy
             // 
-            this.button6.Location = new System.Drawing.Point(226, 249);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(32, 37);
-            this.button6.TabIndex = 19;
-            this.button6.Text = "button5";
-            this.button6.UseVisualStyleBackColor = true;
+            this.b_cardiovisorCopy.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.b_cardiovisorCopy.BackgroundImage = global::dr.Properties.Resources.tumblr_static_tumblr_static_heart_icon;
+            this.b_cardiovisorCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_cardiovisorCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b_cardiovisorCopy.Location = new System.Drawing.Point(226, 249);
+            this.b_cardiovisorCopy.Name = "b_cardiovisorCopy";
+            this.b_cardiovisorCopy.Size = new System.Drawing.Size(32, 31);
+            this.b_cardiovisorCopy.TabIndex = 19;
+            this.b_cardiovisorCopy.UseVisualStyleBackColor = false;
+            this.b_cardiovisorCopy.Visible = false;
+            this.b_cardiovisorCopy.Click += new System.EventHandler(this.b_cardiovisorCopy_Click);
             // 
-            // button7
+            // b_sugarCopy
             // 
-            this.button7.Location = new System.Drawing.Point(290, 249);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(32, 37);
-            this.button7.TabIndex = 19;
-            this.button7.Text = "button5";
-            this.button7.UseVisualStyleBackColor = true;
+            this.b_sugarCopy.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.b_sugarCopy.BackgroundImage = global::dr.Properties.Resources.sugar;
+            this.b_sugarCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_sugarCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b_sugarCopy.Location = new System.Drawing.Point(290, 249);
+            this.b_sugarCopy.Name = "b_sugarCopy";
+            this.b_sugarCopy.Size = new System.Drawing.Size(32, 31);
+            this.b_sugarCopy.TabIndex = 19;
+            this.b_sugarCopy.UseVisualStyleBackColor = false;
+            this.b_sugarCopy.Visible = false;
+            this.b_sugarCopy.Click += new System.EventHandler(this.b_sugarCopy_Click);
             // 
-            // button8
+            // b_impedanceCopy
             // 
-            this.button8.Location = new System.Drawing.Point(322, 249);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(32, 37);
-            this.button8.TabIndex = 19;
-            this.button8.Text = "button5";
-            this.button8.UseVisualStyleBackColor = true;
+            this.b_impedanceCopy.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.b_impedanceCopy.BackgroundImage = global::dr.Properties.Resources.imped;
+            this.b_impedanceCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_impedanceCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b_impedanceCopy.Location = new System.Drawing.Point(322, 249);
+            this.b_impedanceCopy.Name = "b_impedanceCopy";
+            this.b_impedanceCopy.Size = new System.Drawing.Size(32, 31);
+            this.b_impedanceCopy.TabIndex = 19;
+            this.b_impedanceCopy.UseVisualStyleBackColor = false;
+            this.b_impedanceCopy.Visible = false;
             // 
-            // button9
+            // b_smokingCopy
             // 
-            this.button9.Location = new System.Drawing.Point(258, 249);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(32, 37);
-            this.button9.TabIndex = 19;
-            this.button9.Text = "button5";
-            this.button9.UseVisualStyleBackColor = true;
+            this.b_smokingCopy.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.b_smokingCopy.BackgroundImage = global::dr.Properties.Resources.w128h1281379971139pipe128;
+            this.b_smokingCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_smokingCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b_smokingCopy.Location = new System.Drawing.Point(258, 249);
+            this.b_smokingCopy.Name = "b_smokingCopy";
+            this.b_smokingCopy.Size = new System.Drawing.Size(32, 31);
+            this.b_smokingCopy.TabIndex = 19;
+            this.b_smokingCopy.UseVisualStyleBackColor = false;
+            this.b_smokingCopy.Visible = false;
+            this.b_smokingCopy.Click += new System.EventHandler(this.b_smokingCopy_Click);
             // 
             // b_effectuation
             // 
@@ -545,11 +569,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 393);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.b_impedanceCopy);
+            this.Controls.Add(this.b_sugarCopy);
+            this.Controls.Add(this.b_smokingCopy);
+            this.Controls.Add(this.b_cardiovisorCopy);
+            this.Controls.Add(this.b_BMICopy);
             this.Controls.Add(this.rb_teeth);
             this.Controls.Add(this.b_cholesterolClear);
             this.Controls.Add(this.b_sugarClear);
@@ -626,11 +650,11 @@
         private System.Windows.Forms.Button b_cholesterolClear;
         private System.Windows.Forms.CheckBox rb_teeth;
         private System.Windows.Forms.Button b_conclusion;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button b_BMICopy;
+        private System.Windows.Forms.Button b_cardiovisorCopy;
+        private System.Windows.Forms.Button b_sugarCopy;
+        private System.Windows.Forms.Button b_impedanceCopy;
+        private System.Windows.Forms.Button b_smokingCopy;
         private System.Windows.Forms.Button b_effectuation;
     }
 }

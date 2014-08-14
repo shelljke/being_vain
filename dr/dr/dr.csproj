@@ -105,6 +105,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="510632.ico" />
+    <None Include="Resources\w128h1281379971139pipe128.png" />
+    <None Include="Resources\tumblr_static_tumblr_static_heart-icon.png" />
+    <None Include="Resources\sugar.png" />
+    <None Include="Resources\running_man-512.png" />
+    <None Include="Resources\imped.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
