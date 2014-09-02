@@ -59,7 +59,6 @@ namespace dr
         {
             if (BMI_a=="" & pressure_a=="") {b_BMICopy.Visible=false;} else b_BMICopy.Visible=true;
             if (smoking_a=="") {b_smokingCopy.Visible=false;} else b_smokingCopy.Visible=true;
-            if (cardiovisor_a == "") { b_cardiovisorCopy.Visible = false; } else b_cardiovisorCopy.Visible = true;
             if (cholesterol_a == "" & sugar_a=="" ) { b_sugarCopy.Visible = false; } else b_sugarCopy.Visible = true;
         }
 
@@ -71,7 +70,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -469,7 +467,6 @@ namespace dr
             b_abnormalities.BackColor = Color.LimeGreen;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -485,7 +482,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -501,7 +497,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -517,7 +512,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -532,7 +526,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.LimeGreen;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
         }
 
@@ -546,7 +539,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.LimeGreen;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -561,7 +553,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.LimeGreen;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
@@ -576,7 +567,6 @@ namespace dr
             b_abnormalities.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
             b_sugarCopy.BackColor = Color.LimeGreen;
-            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }

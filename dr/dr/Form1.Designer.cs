@@ -62,7 +62,6 @@
             this.rb_teeth = new System.Windows.Forms.CheckBox();
             this.b_conclusion = new System.Windows.Forms.Button();
             this.b_BMICopy = new System.Windows.Forms.Button();
-            this.b_cardiovisorCopy = new System.Windows.Forms.Button();
             this.b_sugarCopy = new System.Windows.Forms.Button();
             this.b_impedanceCopy = new System.Windows.Forms.Button();
             this.b_smokingCopy = new System.Windows.Forms.Button();
@@ -469,27 +468,13 @@
             this.b_BMICopy.Visible = false;
             this.b_BMICopy.Click += new System.EventHandler(this.b_BMICopy_Click);
             // 
-            // b_cardiovisorCopy
-            // 
-            this.b_cardiovisorCopy.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_cardiovisorCopy.BackgroundImage = global::dr.Properties.Resources.tumblr_static_tumblr_static_heart_icon;
-            this.b_cardiovisorCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.b_cardiovisorCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_cardiovisorCopy.Location = new System.Drawing.Point(226, 249);
-            this.b_cardiovisorCopy.Name = "b_cardiovisorCopy";
-            this.b_cardiovisorCopy.Size = new System.Drawing.Size(32, 31);
-            this.b_cardiovisorCopy.TabIndex = 19;
-            this.b_cardiovisorCopy.UseVisualStyleBackColor = false;
-            this.b_cardiovisorCopy.Visible = false;
-            this.b_cardiovisorCopy.Click += new System.EventHandler(this.b_cardiovisorCopy_Click);
-            // 
             // b_sugarCopy
             // 
             this.b_sugarCopy.BackColor = System.Drawing.Color.MediumAquamarine;
             this.b_sugarCopy.BackgroundImage = global::dr.Properties.Resources.sugar;
             this.b_sugarCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_sugarCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_sugarCopy.Location = new System.Drawing.Point(290, 249);
+            this.b_sugarCopy.Location = new System.Drawing.Point(278, 249);
             this.b_sugarCopy.Name = "b_sugarCopy";
             this.b_sugarCopy.Size = new System.Drawing.Size(32, 31);
             this.b_sugarCopy.TabIndex = 19;
@@ -503,7 +488,7 @@
             this.b_impedanceCopy.BackgroundImage = global::dr.Properties.Resources.imped;
             this.b_impedanceCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_impedanceCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_impedanceCopy.Location = new System.Drawing.Point(322, 249);
+            this.b_impedanceCopy.Location = new System.Drawing.Point(320, 249);
             this.b_impedanceCopy.Name = "b_impedanceCopy";
             this.b_impedanceCopy.Size = new System.Drawing.Size(32, 31);
             this.b_impedanceCopy.TabIndex = 19;
@@ -516,7 +501,7 @@
             this.b_smokingCopy.BackgroundImage = global::dr.Properties.Resources.w128h1281379971139pipe128;
             this.b_smokingCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_smokingCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_smokingCopy.Location = new System.Drawing.Point(258, 249);
+            this.b_smokingCopy.Location = new System.Drawing.Point(236, 249);
             this.b_smokingCopy.Name = "b_smokingCopy";
             this.b_smokingCopy.Size = new System.Drawing.Size(32, 31);
             this.b_smokingCopy.TabIndex = 19;
@@ -572,7 +557,6 @@
             this.Controls.Add(this.b_impedanceCopy);
             this.Controls.Add(this.b_sugarCopy);
             this.Controls.Add(this.b_smokingCopy);
-            this.Controls.Add(this.b_cardiovisorCopy);
             this.Controls.Add(this.b_BMICopy);
             this.Controls.Add(this.rb_teeth);
             this.Controls.Add(this.b_cholesterolClear);
@@ -645,7 +629,6 @@
         private System.Windows.Forms.CheckBox rb_teeth;
         private System.Windows.Forms.Button b_conclusion;
         private System.Windows.Forms.Button b_BMICopy;
-        private System.Windows.Forms.Button b_cardiovisorCopy;
         private System.Windows.Forms.Button b_sugarCopy;
         private System.Windows.Forms.Button b_impedanceCopy;
         private System.Windows.Forms.Button b_smokingCopy;
