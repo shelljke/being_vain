@@ -115,6 +115,7 @@ namespace dr
             }
             BMI_a = "Дефицит массы тела." + System.Environment.NewLine;
             checkButtons();
+            resetColors();
         }
 
         private void rb_BMINorm_CheckedChanged(object sender, EventArgs e)

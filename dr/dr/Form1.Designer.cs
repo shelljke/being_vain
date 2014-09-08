@@ -68,6 +68,7 @@
             this.b_effectuation = new System.Windows.Forms.Button();
             this.mtb_cardiovisor = new System.Windows.Forms.MaskedTextBox();
             this.mtb_age = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.gp_pressure.SuspendLayout();
             this.gp_BMI.SuspendLayout();
             this.gp_smoking.SuspendLayout();
@@ -547,6 +548,17 @@
             this.mtb_age.Click += new System.EventHandler(this.mtb_age_Click);
             this.mtb_age.TextChanged += new System.EventHandler(this.mtb_age_TextChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Adobe Gothic Std B", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label1.Location = new System.Drawing.Point(1, 379);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 14);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "© Sagan A";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -575,6 +587,7 @@
             this.Controls.Add(this.l_sugar);
             this.Controls.Add(this.l_cardiovisor);
             this.Controls.Add(this.l_age);
+            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -635,6 +648,7 @@
         private System.Windows.Forms.Button b_effectuation;
         private System.Windows.Forms.MaskedTextBox mtb_cardiovisor;
         private System.Windows.Forms.MaskedTextBox mtb_age;
+        private System.Windows.Forms.Label label1;
     }
 }
 
