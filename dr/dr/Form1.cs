@@ -336,13 +336,13 @@ namespace dr
             double cardiovisor_v = Convert.ToDouble(mtb_cardiovisor.Text);
             if (cardiovisor_v < 15)
             {
-                effectuation = "Приглашен в Центр Здоровья в 2015 году.";
+                effectuation = "Приглашен в Центр Здоровья в 2016 году.";
                 cardiovisor_r = "";
                 cardiovisor_a = "";
             }
             if (cardiovisor_v >= 15 & cardiovisor_v < 23)
             {
-                effectuation = "Приглашен в Центр Здоровья в 2015 году.";
+                effectuation = "Приглашен в Центр Здоровья в 2016 году.";
                 cardiovisor_r = System.Environment.NewLine + System.Environment.NewLine + "Консультация кардиолога (по данным кардиовизора выявлены изменения, требующие дообследования). ";
                 cardiovisor_a = "По данным кардиовизора «пограничное состояние» (" + cardiovisor_v.ToString() + "%)." + System.Environment.NewLine;
             }
@@ -571,6 +571,7 @@ namespace dr
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
         }
+
     }
 }
 

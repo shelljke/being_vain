@@ -63,7 +63,6 @@
             this.b_conclusion = new System.Windows.Forms.Button();
             this.b_BMICopy = new System.Windows.Forms.Button();
             this.b_sugarCopy = new System.Windows.Forms.Button();
-            this.b_impedanceCopy = new System.Windows.Forms.Button();
             this.b_smokingCopy = new System.Windows.Forms.Button();
             this.b_effectuation = new System.Windows.Forms.Button();
             this.mtb_cardiovisor = new System.Windows.Forms.MaskedTextBox();
@@ -397,7 +396,6 @@
             // 
             // b_cardiovisorClear
             // 
-            this.b_cardiovisorClear.BackgroundImage = global::dr.Properties.Resources.w128h1281338911337cross;
             this.b_cardiovisorClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_cardiovisorClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.b_cardiovisorClear.Location = new System.Drawing.Point(334, 64);
@@ -409,7 +407,6 @@
             // 
             // b_sugarClear
             // 
-            this.b_sugarClear.BackgroundImage = global::dr.Properties.Resources.w128h1281338911337cross;
             this.b_sugarClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_sugarClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.b_sugarClear.Location = new System.Drawing.Point(334, 141);
@@ -421,7 +418,6 @@
             // 
             // b_cholesterolClear
             // 
-            this.b_cholesterolClear.BackgroundImage = global::dr.Properties.Resources.w128h1281338911337cross;
             this.b_cholesterolClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_cholesterolClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.b_cholesterolClear.Location = new System.Drawing.Point(334, 103);
@@ -457,12 +453,11 @@
             // b_BMICopy
             // 
             this.b_BMICopy.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_BMICopy.BackgroundImage = global::dr.Properties.Resources.running_man_512;
             this.b_BMICopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_BMICopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.b_BMICopy.Location = new System.Drawing.Point(194, 249);
             this.b_BMICopy.Name = "b_BMICopy";
-            this.b_BMICopy.Size = new System.Drawing.Size(32, 31);
+            this.b_BMICopy.Size = new System.Drawing.Size(49, 31);
             this.b_BMICopy.TabIndex = 19;
             this.b_BMICopy.Text = " ";
             this.b_BMICopy.UseVisualStyleBackColor = false;
@@ -472,39 +467,24 @@
             // b_sugarCopy
             // 
             this.b_sugarCopy.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_sugarCopy.BackgroundImage = global::dr.Properties.Resources.sugar;
             this.b_sugarCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_sugarCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_sugarCopy.Location = new System.Drawing.Point(278, 249);
+            this.b_sugarCopy.Location = new System.Drawing.Point(304, 249);
             this.b_sugarCopy.Name = "b_sugarCopy";
-            this.b_sugarCopy.Size = new System.Drawing.Size(32, 31);
+            this.b_sugarCopy.Size = new System.Drawing.Size(49, 31);
             this.b_sugarCopy.TabIndex = 19;
             this.b_sugarCopy.UseVisualStyleBackColor = false;
             this.b_sugarCopy.Visible = false;
             this.b_sugarCopy.Click += new System.EventHandler(this.b_sugarCopy_Click);
             // 
-            // b_impedanceCopy
-            // 
-            this.b_impedanceCopy.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_impedanceCopy.BackgroundImage = global::dr.Properties.Resources.imped;
-            this.b_impedanceCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.b_impedanceCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_impedanceCopy.Location = new System.Drawing.Point(320, 249);
-            this.b_impedanceCopy.Name = "b_impedanceCopy";
-            this.b_impedanceCopy.Size = new System.Drawing.Size(32, 31);
-            this.b_impedanceCopy.TabIndex = 19;
-            this.b_impedanceCopy.UseVisualStyleBackColor = false;
-            this.b_impedanceCopy.Visible = false;
-            // 
             // b_smokingCopy
             // 
             this.b_smokingCopy.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_smokingCopy.BackgroundImage = global::dr.Properties.Resources.w128h1281379971139pipe128;
             this.b_smokingCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.b_smokingCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_smokingCopy.Location = new System.Drawing.Point(236, 249);
+            this.b_smokingCopy.Location = new System.Drawing.Point(249, 249);
             this.b_smokingCopy.Name = "b_smokingCopy";
-            this.b_smokingCopy.Size = new System.Drawing.Size(32, 31);
+            this.b_smokingCopy.Size = new System.Drawing.Size(49, 31);
             this.b_smokingCopy.TabIndex = 19;
             this.b_smokingCopy.UseVisualStyleBackColor = false;
             this.b_smokingCopy.Visible = false;
@@ -566,7 +546,6 @@
             this.ClientSize = new System.Drawing.Size(360, 393);
             this.Controls.Add(this.mtb_age);
             this.Controls.Add(this.mtb_cardiovisor);
-            this.Controls.Add(this.b_impedanceCopy);
             this.Controls.Add(this.b_sugarCopy);
             this.Controls.Add(this.b_smokingCopy);
             this.Controls.Add(this.b_BMICopy);
@@ -643,7 +622,6 @@
         private System.Windows.Forms.Button b_conclusion;
         private System.Windows.Forms.Button b_BMICopy;
         private System.Windows.Forms.Button b_sugarCopy;
-        private System.Windows.Forms.Button b_impedanceCopy;
         private System.Windows.Forms.Button b_smokingCopy;
         private System.Windows.Forms.Button b_effectuation;
         private System.Windows.Forms.MaskedTextBox mtb_cardiovisor;
