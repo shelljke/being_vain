@@ -58,6 +58,7 @@ namespace dr
         void checkButtons()
         {
             if (BMI_a=="" & pressure_a=="") {b_BMICopy.Visible=false;} else b_BMICopy.Visible=true;
+            if (cardiovisor_a == "") { b_cardiovisorCopy.Visible = false; } else b_cardiovisorCopy.Visible = true;
             if (smoking_a=="") {b_smokingCopy.Visible=false;} else b_smokingCopy.Visible=true;
             if (cholesterol_a == "" & sugar_a=="" ) { b_sugarCopy.Visible = false; } else b_sugarCopy.Visible = true;
         }
@@ -72,6 +73,7 @@ namespace dr
             b_sugarCopy.BackColor = Color.MediumAquamarine;
             b_smokingCopy.BackColor = Color.MediumAquamarine;
             b_BMICopy.BackColor = Color.MediumAquamarine;
+            b_cardiovisorCopy.BackColor = Color.MediumAquamarine;
         }
 
         //
@@ -462,14 +464,9 @@ namespace dr
             result();
             Clipboard.SetText(abnormalities);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
-            b_conclusion.BackColor = Color.MediumAquamarine;
-            b_recommendations.BackColor = Color.MediumAquamarine;
+            resetColors();
             b_abnormalities.BackColor = Color.LimeGreen;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+
         }
 
         private void b_conclusion_Click(object sender, EventArgs e)
@@ -477,14 +474,9 @@ namespace dr
             result();
             Clipboard.SetText(conclusion);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
+            resetColors();
             b_conclusion.BackColor = Color.LimeGreen;
-            b_recommendations.BackColor = Color.MediumAquamarine;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+
         }
 
         private void b_recommendations_Click(object sender, EventArgs e)
@@ -492,14 +484,9 @@ namespace dr
             result();
             Clipboard.SetText(recommendations);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
-            b_conclusion.BackColor = Color.MediumAquamarine;
+            resetColors();
             b_recommendations.BackColor = Color.LimeGreen;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+
         }
 
         private void b_effectuation_Click(object sender, EventArgs e)
@@ -507,69 +494,44 @@ namespace dr
             result();
             Clipboard.SetText(effectuation);
 
+            resetColors();
             b_effectuation.BackColor = Color.LimeGreen;
-            b_conclusion.BackColor = Color.MediumAquamarine;
-            b_recommendations.BackColor = Color.MediumAquamarine;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+
         }
 
         private void b_BMICopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(BMI_a+pressure_a);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
-            b_conclusion.BackColor = Color.MediumAquamarine;
-            b_recommendations.BackColor = Color.MediumAquamarine;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
+            resetColors();
             b_BMICopy.BackColor = Color.LimeGreen;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
+
         }
 
         private void b_cardiovisorCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(cardiovisor_a);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
-            b_conclusion.BackColor = Color.MediumAquamarine;
-            b_recommendations.BackColor = Color.MediumAquamarine;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+            resetColors();
+            b_cardiovisorCopy.BackColor = Color.LimeGreen;
         }
 
         private void b_smokingCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(smoking_a);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
-            b_conclusion.BackColor = Color.MediumAquamarine;
-            b_recommendations.BackColor = Color.MediumAquamarine;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
-            b_sugarCopy.BackColor = Color.MediumAquamarine;
+            resetColors();
             b_smokingCopy.BackColor = Color.LimeGreen;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+
         }
 
         private void b_sugarCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(sugar_a+cholesterol_a);
 
-            b_effectuation.BackColor = Color.MediumAquamarine;
-            b_conclusion.BackColor = Color.MediumAquamarine;
-            b_recommendations.BackColor = Color.MediumAquamarine;
-            b_abnormalities.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+            resetColors();
             b_sugarCopy.BackColor = Color.LimeGreen;
-            b_smokingCopy.BackColor = Color.MediumAquamarine;
-            b_BMICopy.BackColor = Color.MediumAquamarine;
+
         }
 
     }

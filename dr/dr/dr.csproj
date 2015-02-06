@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="510632.ico" />
+    <None Include="Resources\fat.png" />
     <None Include="Resources\cross.png" />
     <None Include="Resources\sugar.png" />
     <None Include="Resources\smoke.png" />

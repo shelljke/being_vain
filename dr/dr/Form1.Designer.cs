@@ -56,17 +56,18 @@
             this.l_cholesterol = new System.Windows.Forms.Label();
             this.tl_sugar = new System.Windows.Forms.MaskedTextBox();
             this.tl_cholesterol = new System.Windows.Forms.MaskedTextBox();
-            this.b_sugarClear = new System.Windows.Forms.Button();
-            this.b_cholesterolClear = new System.Windows.Forms.Button();
             this.rb_teeth = new System.Windows.Forms.CheckBox();
             this.b_conclusion = new System.Windows.Forms.Button();
             this.b_effectuation = new System.Windows.Forms.Button();
             this.mtb_cardiovisor = new System.Windows.Forms.MaskedTextBox();
             this.mtb_age = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.b_cardiovisorCopy = new System.Windows.Forms.Button();
             this.b_sugarCopy = new System.Windows.Forms.Button();
             this.b_smokingCopy = new System.Windows.Forms.Button();
             this.b_BMICopy = new System.Windows.Forms.Button();
+            this.b_cholesterolClear = new System.Windows.Forms.Button();
+            this.b_sugarClear = new System.Windows.Forms.Button();
             this.b_cardiovisorClear = new System.Windows.Forms.Button();
             this.gp_pressure.SuspendLayout();
             this.gp_BMI.SuspendLayout();
@@ -394,30 +395,6 @@
             this.tl_cholesterol.Click += new System.EventHandler(this.tl_cholesterol_Click);
             this.tl_cholesterol.TextChanged += new System.EventHandler(this.tl_cholesterol_TextChanged);
             // 
-            // b_sugarClear
-            // 
-            this.b_sugarClear.BackgroundImage = global::dr.Properties.Resources.cross;
-            this.b_sugarClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.b_sugarClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.b_sugarClear.Location = new System.Drawing.Point(334, 141);
-            this.b_sugarClear.Name = "b_sugarClear";
-            this.b_sugarClear.Size = new System.Drawing.Size(20, 20);
-            this.b_sugarClear.TabIndex = 17;
-            this.b_sugarClear.UseVisualStyleBackColor = true;
-            this.b_sugarClear.Click += new System.EventHandler(this.b_sugarClear_Click);
-            // 
-            // b_cholesterolClear
-            // 
-            this.b_cholesterolClear.BackgroundImage = global::dr.Properties.Resources.cross;
-            this.b_cholesterolClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.b_cholesterolClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.b_cholesterolClear.Location = new System.Drawing.Point(334, 103);
-            this.b_cholesterolClear.Name = "b_cholesterolClear";
-            this.b_cholesterolClear.Size = new System.Drawing.Size(20, 20);
-            this.b_cholesterolClear.TabIndex = 17;
-            this.b_cholesterolClear.UseVisualStyleBackColor = true;
-            this.b_cholesterolClear.Click += new System.EventHandler(this.b_cholesterolClear_Click);
-            // 
             // rb_teeth
             // 
             this.rb_teeth.AutoSize = true;
@@ -490,15 +467,29 @@
             this.label1.TabIndex = 22;
             this.label1.Text = "© Sagan A.";
             // 
+            // b_cardiovisorCopy
+            // 
+            this.b_cardiovisorCopy.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.b_cardiovisorCopy.BackgroundImage = global::dr.Properties.Resources.heart1;
+            this.b_cardiovisorCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.b_cardiovisorCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b_cardiovisorCopy.Location = new System.Drawing.Point(317, 249);
+            this.b_cardiovisorCopy.Name = "b_cardiovisorCopy";
+            this.b_cardiovisorCopy.Size = new System.Drawing.Size(36, 31);
+            this.b_cardiovisorCopy.TabIndex = 19;
+            this.b_cardiovisorCopy.UseVisualStyleBackColor = false;
+            this.b_cardiovisorCopy.Visible = false;
+            this.b_cardiovisorCopy.Click += new System.EventHandler(this.b_cardiovisorCopy_Click);
+            // 
             // b_sugarCopy
             // 
             this.b_sugarCopy.BackColor = System.Drawing.Color.MediumAquamarine;
             this.b_sugarCopy.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("b_sugarCopy.BackgroundImage")));
             this.b_sugarCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.b_sugarCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_sugarCopy.Location = new System.Drawing.Point(304, 249);
+            this.b_sugarCopy.Location = new System.Drawing.Point(276, 249);
             this.b_sugarCopy.Name = "b_sugarCopy";
-            this.b_sugarCopy.Size = new System.Drawing.Size(49, 31);
+            this.b_sugarCopy.Size = new System.Drawing.Size(36, 31);
             this.b_sugarCopy.TabIndex = 19;
             this.b_sugarCopy.UseVisualStyleBackColor = false;
             this.b_sugarCopy.Visible = false;
@@ -510,9 +501,9 @@
             this.b_smokingCopy.BackgroundImage = global::dr.Properties.Resources.smoke;
             this.b_smokingCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.b_smokingCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.b_smokingCopy.Location = new System.Drawing.Point(249, 249);
+            this.b_smokingCopy.Location = new System.Drawing.Point(235, 249);
             this.b_smokingCopy.Name = "b_smokingCopy";
-            this.b_smokingCopy.Size = new System.Drawing.Size(49, 31);
+            this.b_smokingCopy.Size = new System.Drawing.Size(36, 31);
             this.b_smokingCopy.TabIndex = 19;
             this.b_smokingCopy.UseVisualStyleBackColor = false;
             this.b_smokingCopy.Visible = false;
@@ -521,17 +512,41 @@
             // b_BMICopy
             // 
             this.b_BMICopy.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.b_BMICopy.BackgroundImage = global::dr.Properties.Resources.heart1;
+            this.b_BMICopy.BackgroundImage = global::dr.Properties.Resources.fat;
             this.b_BMICopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.b_BMICopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.b_BMICopy.Location = new System.Drawing.Point(194, 249);
             this.b_BMICopy.Name = "b_BMICopy";
-            this.b_BMICopy.Size = new System.Drawing.Size(49, 31);
+            this.b_BMICopy.Size = new System.Drawing.Size(36, 31);
             this.b_BMICopy.TabIndex = 19;
             this.b_BMICopy.Text = " ";
             this.b_BMICopy.UseVisualStyleBackColor = false;
             this.b_BMICopy.Visible = false;
             this.b_BMICopy.Click += new System.EventHandler(this.b_BMICopy_Click);
+            // 
+            // b_cholesterolClear
+            // 
+            this.b_cholesterolClear.BackgroundImage = global::dr.Properties.Resources.cross;
+            this.b_cholesterolClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_cholesterolClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.b_cholesterolClear.Location = new System.Drawing.Point(334, 103);
+            this.b_cholesterolClear.Name = "b_cholesterolClear";
+            this.b_cholesterolClear.Size = new System.Drawing.Size(20, 20);
+            this.b_cholesterolClear.TabIndex = 17;
+            this.b_cholesterolClear.UseVisualStyleBackColor = true;
+            this.b_cholesterolClear.Click += new System.EventHandler(this.b_cholesterolClear_Click);
+            // 
+            // b_sugarClear
+            // 
+            this.b_sugarClear.BackgroundImage = global::dr.Properties.Resources.cross;
+            this.b_sugarClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.b_sugarClear.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.b_sugarClear.Location = new System.Drawing.Point(334, 141);
+            this.b_sugarClear.Name = "b_sugarClear";
+            this.b_sugarClear.Size = new System.Drawing.Size(20, 20);
+            this.b_sugarClear.TabIndex = 17;
+            this.b_sugarClear.UseVisualStyleBackColor = true;
+            this.b_sugarClear.Click += new System.EventHandler(this.b_sugarClear_Click);
             // 
             // b_cardiovisorClear
             // 
@@ -552,6 +567,7 @@
             this.ClientSize = new System.Drawing.Size(360, 393);
             this.Controls.Add(this.mtb_age);
             this.Controls.Add(this.mtb_cardiovisor);
+            this.Controls.Add(this.b_cardiovisorCopy);
             this.Controls.Add(this.b_sugarCopy);
             this.Controls.Add(this.b_smokingCopy);
             this.Controls.Add(this.b_BMICopy);
@@ -633,6 +649,7 @@
         private System.Windows.Forms.MaskedTextBox mtb_cardiovisor;
         private System.Windows.Forms.MaskedTextBox mtb_age;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button b_cardiovisorCopy;
     }
 }
 

@@ -73,6 +73,16 @@ namespace dr.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fat {
+            get {
+                object obj = ResourceManager.GetObject("fat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap heart1 {
             get {
                 object obj = ResourceManager.GetObject("heart1", resourceCulture);
