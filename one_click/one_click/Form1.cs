@@ -1029,9 +1029,6 @@ namespace one_click
                 image_l.Dispose();
             }
         }
-
-
-
         private void reset_Click(object sender, EventArgs e)
         {
             save.Enabled = false;
@@ -1044,13 +1041,7 @@ namespace one_click
             
             clock.Show();
         }
- 
+     }
 
-
-
-
-
-
-    }
 }
 
