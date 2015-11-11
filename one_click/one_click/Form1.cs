@@ -29,6 +29,7 @@ namespace one_click
 
         }
 
+
         private void beginpic_Click_1(object sender, EventArgs e)
         {
             hi.Hide();
