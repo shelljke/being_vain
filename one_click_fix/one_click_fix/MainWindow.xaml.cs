@@ -23,8 +23,6 @@ namespace one_click_fix
             Nullable<bool> result = openImageDialog.ShowDialog();
             if (result == true)
             {
-
-                string filename = openImageDialog.FileName;
                 mainImage_I.Visibility = Visibility.Visible;
 
 
@@ -49,7 +47,7 @@ namespace one_click_fix
                         byte alpha = originalImagePixels[index + 3];
                     }
 
-
+                    BitmapImage bitmap = new BitmapImage();
                 }
             }
         }
