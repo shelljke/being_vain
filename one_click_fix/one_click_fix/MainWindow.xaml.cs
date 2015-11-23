@@ -66,35 +66,6 @@ namespace one_click_fix
                 originalImage.CopyPixels(originalImagePixels, originalStride, 0);
                 previewImage.CopyPixels(previewImagePixels, previewStride, 0);
 
-                for (int x = 0; x < (int)originalImage.Width; x++)
-                {
-                    for (int y = 0; y < (int)originalImage.Height; y++)
-                    {
-                        int index = y * originalStride + 4 * x;
-
-                        byte red = originalImagePixels[index];
-                        byte green = originalImagePixels[index + 1];
-                        byte blue = originalImagePixels[index + 2];
-                        byte alpha = originalImagePixels[index + 3];
-                        originalImagePixels[index + 1] = (byte)(originalImagePixels[index + 1] * 0.21 + originalImagePixels[index + 2] * 0.79);
-                    }
-
-                }
-
-
-
-                    BitmapSource bbitmap = BitmapSource.Create(originalImage.PixelWidth, originalImage.PixelHeight,
-               96, 96, PixelFormats.Bgr32, null,
-               originalImagePixels, originalStride);
-
-                    mainImage_I.Source = bbitmap;
-
-                BitmapSource pbbitmap = BitmapSource.Create(previewImage.PixelWidth, previewImage.PixelHeight,
-               96, 96, PixelFormats.Bgr32, null,
-               previewImagePixels, previewStride);
-
-                blackAndWhite_I.Source = pbbitmap;
-
             }
         }
 
