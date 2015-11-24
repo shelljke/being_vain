@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Linq;
+using System.Windows.Media;
+
 namespace one_click_fix
 {
     /// <summary>
@@ -9,6 +11,7 @@ namespace one_click_fix
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,63 +28,48 @@ namespace one_click_fix
             {
                 string filename = openImageDialog.FileName;
                 mainImage_I.Visibility = Visibility.Visible;
+                blackAndWhite_I.Visibility = Visibility.Visible;
 
-                BitmapImage originalImage = new BitmapImage(new Uri(openImageDialog.FileName));
+                Uri uri = new Uri(openImageDialog.FileName);
 
-                int stride = originalImage.PixelWidth * 4;
-                int size = originalImage.PixelHeight * stride;
+                BitmapImage originalImage = new BitmapImage(uri);
+                BitmapImage previewImage = new BitmapImage();
 
-                byte[] originalImagePixels = new byte[size];
-                byte[] previewImagePixels = new byte[size];
 
-                originalImage.CopyPixels(originalImagePixels, stride, 0);
-
-                for(int x = 0; x< (int)originalImage.Height; x++)
+                previewImage.BeginInit();
+                    previewImage.UriSource = uri;
+                if (originalImage.Width < originalImage.Height)
                 {
-                    for (int y = 0; y < (int)originalImage.Height; y++)
-                    {
-                        int index = y * stride + 4 * x;
-                        byte red = originalImagePixels[index];
-                        byte green = originalImagePixels[index + 1];
-                        byte blue = originalImagePixels[index + 2];
-                        byte alpha = originalImagePixels[index + 3];
-                    }
-
-
+                    previewImage.DecodePixelHeight = 60;
+                    double k = originalImage.Height / previewImage.DecodePixelHeight;
+                    previewImage.DecodePixelWidth /= (int)k;
                 }
-            }
-        }
-
-
-
-        class mask
-        {
-            BitmapImage applyFilter(BitmapImage image)
-            {
-                Enumerable.Range(0, (int)image.Width).AsParallel().ForAll(x =>
+                else
                 {
-                    for (int y = 0; y < (int)image.Height; y++)
-                    {
-                        /*        color = ;
-                                color1 = dsp.GetPixel(x, y);
+                    previewImage.DecodePixelWidth = 110;
+                    double k = originalImage.Width / previewImage.DecodePixelWidth;
+                    previewImage.DecodePixelHeight /= (int)k;
+                }
 
-                                float brght = color.GetBrightness();
-                                float brght1 = color1.GetBrightness();
+                previewImage.EndInit();
 
-                                byte r1 = color1.R;
-                                byte g1 = color1.G;
-                                byte b1 = color1.B;
+                int originalStride = originalImage.PixelWidth * 4;
+                int originalSize = originalImage.PixelHeight * originalStride;
 
-                                r = (byte)((r * 0.35 + ((brght) * r + (1 - brght) * 100) * 0.65));
-                                b = (byte)((b * 0.7 + ((1 - brght) * b + (brght) * 255) * 0.3));
+                int previewStride = previewImage.PixelWidth * 4;
+                int previewlSize = previewImage.PixelHeight * previewStride;
 
-                                dst.SetPixel(x, y, Color.FromArgb((byte)(r * (1 - brght1) + r1 * brght1), (byte)(g * (1 - brght1) + g1 * brght1), (byte)(b * (1 - brght1) + b1 * brght1)));
-                            */
-                    }
-                });
+                byte[] originalImagePixels = new byte[originalSize];
+                byte[] previewImagePixels = new byte[previewlSize];
 
-                return image;
+                
+                originalImage.CopyPixels(originalImagePixels, originalStride, 0);
+                previewImage.CopyPixels(previewImagePixels, previewStride, 0);
+
             }
         }
+
+
+
     }
 }
