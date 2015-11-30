@@ -83,7 +83,7 @@ namespace one_click_fix
 
         private void blackAndWhite_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            currentMask = maskPixels.blackAndWhite(originalImagePixels,originalImage.PixelWidth, originalImage.PixelHeight);
+                    currentMask = maskPixels.blackAndWhite(originalImagePixels,originalImage.PixelWidth, originalImage.PixelHeight);
             mainImage_I.Source = updater.applyFilter(currentMask, originalImagePixels, 1, (int)originalImage.Width, (int)originalImage.Height);
         }
 
