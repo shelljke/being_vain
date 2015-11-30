@@ -10,24 +10,25 @@ namespace one_click_fix
 {
   partial class combine 
     {
+        private BitmapSource resultImage;
+         
 
-        public BitmapSource applyFilter(byte[] mask, byte[] image, int power, int w, int h)
+        public BitmapSource applyFilter(byte[] mask, byte[] image, double power, int w, int h)
         {
-
+            byte[] resultImagePixels = new byte[w*h*4];
             for (int x = 0; x < (int)w; x++)
             {
                 for (int y = 0; y < (int)h; y++)
                 {
                     int index = y * w * 4 + 4 * x;
-                    image[index] =(byte)( (255 - power) * image[index]+power*mask[index]);
-                    image[index+1] = (byte)((255 - power) * image[index+1] + power * mask[index+1]);
-                    image[index+2] = (byte)((255 - power) * image[index+2] + power * mask[index+2]);
+                    resultImagePixels[index] =   (byte)((1 - power) * image[index]   + power * mask[index]);
+                    resultImagePixels[index + 1] = (byte)((1 - power) * image[index + 1] + power * mask[index + 1]);
+                    resultImagePixels[index+2] = (byte)((1 - power) * image[index+2] + power * mask[index+2]);
 
                 }
-
             }
-            BitmapSource bbitmap= BitmapSource.Create(w, h, 96, 96, PixelFormats.Bgr32, null, image, w * 4);
-            return bbitmap;
+            resultImage = BitmapSource.Create(w, h,1, 1, PixelFormats.Bgr32, null, resultImagePixels, w * 4);
+            return resultImage;
         }
 
     }

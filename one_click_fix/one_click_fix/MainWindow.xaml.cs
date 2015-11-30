@@ -11,6 +11,12 @@ namespace one_click_fix
     /// </summary>
     public partial class MainWindow : Window
     {
+        protected byte[] originalImagePixels;
+        protected byte[] previewImagePixels;
+        protected BitmapImage originalImage;
+        mask maskPixels = new mask();
+        combine updater = new combine();
+        byte[] currentMask;
 
         public MainWindow()
         {
@@ -32,7 +38,7 @@ namespace one_click_fix
 
                 Uri uri = new Uri(openImageDialog.FileName);
 
-                BitmapImage originalImage = new BitmapImage(uri);
+                originalImage = new BitmapImage(uri);
                 BitmapImage previewImage = new BitmapImage();
 
 
@@ -57,19 +63,33 @@ namespace one_click_fix
                 int originalSize = originalImage.PixelHeight * originalStride;
 
                 int previewStride = previewImage.PixelWidth * 4;
-                int previewlSize = previewImage.PixelHeight * previewStride;
+                int previewlSize = previewImage.PixelHeight * previewImage.PixelWidth * 4;
 
-                byte[] originalImagePixels = new byte[originalSize];
-                byte[] previewImagePixels = new byte[previewlSize];
-
+                originalImagePixels = new byte[originalSize];
+                previewImagePixels = new byte[previewlSize];
                 
+
                 originalImage.CopyPixels(originalImagePixels, originalStride, 0);
                 previewImage.CopyPixels(previewImagePixels, previewStride, 0);
 
+                
+
+                blackAndWhite_I.Visibility = Visibility.Visible;
+                currentMask = maskPixels.blackAndWhite(previewImagePixels, previewImage.PixelWidth, previewImage.PixelHeight);
+               // blackAndWhite_I.Source= BitmapSource.Create((int)previewImage.Width, (int)previewImage.Height, 96, 96, PixelFormats.Bgr32, null, previewImagePixels2, (int)previewImage.Width * 4);
+                blackAndWhite_I.Source = updater.applyFilter(previewImagePixels, previewImagePixels, 0.5, (int)previewImage.Width, (int)previewImage.Height);
             }
         }
 
+        private void blackAndWhite_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            currentMask = maskPixels.blackAndWhite(originalImagePixels,originalImage.PixelWidth, originalImage.PixelHeight);
+            mainImage_I.Source = updater.applyFilter(currentMask, originalImagePixels, 1, (int)originalImage.Width, (int)originalImage.Height);
+        }
 
-
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mainImage_I.Source = updater.applyFilter(currentMask, originalImagePixels, slider.Value, (int)originalImage.Width, (int)originalImage.Height);
+        }
     }
 }
