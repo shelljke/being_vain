@@ -7,19 +7,17 @@ using System.Windows.Media.Imaging;
 
 namespace one_click_fix
 {
-    partial class mask
+     class mask
     {
-        public byte[] blackAndWhite(byte[] imagePixels, BitmapImage image)
+        public byte[] blackAndWhite(byte[] imagePixels, int w, int h)
         {
-
-            for (int x = 0; x < (int)image.Width; x++)
+            for (int x = 0; x < w; x++)
             {
-                for (int y = 0; y < (int)image.Height; y++)
+                for (int y = 0; y < h; y++)
                 {
-                    int index = y * image.PixelWidth * 4 + 4 * x;
-                    imagePixels[index ] = imagePixels[index + 1] = imagePixels[index + 2];
+                    int index = y * w * 4 + 4 * x;
+                    imagePixels[index] = imagePixels[index + 1] = imagePixels[index + 2];
                 }
-
             }
             return imagePixels;
         }
