@@ -76,7 +76,7 @@ namespace one_click_fix
 
                 blackAndWhite_I.Visibility = Visibility.Visible;
                 currentMask = maskPixels.blackAndWhite(previewImagePixels, previewImage.PixelWidth, previewImage.PixelHeight);
-               // blackAndWhite_I.Source= BitmapSource.Create((int)previewImage.Width, (int)previewImage.Height, 96, 96, PixelFormats.Bgr32, null, previewImagePixels2, (int)previewImage.Width * 4);
+             __  // blackAndWhite_I.Source= BitmapSource.Create((int)previewImage.Width, (int)previewImage.Height, 96, 96, PixelFormats.Bgr32, null, previewImagePixels2, (int)previewImage.Width * 4);
                 blackAndWhite_I.Source = updater.applyFilter(previewImagePixels, previewImagePixels, 0.5, (int)previewImage.Width, (int)previewImage.Height);
             }
         }
