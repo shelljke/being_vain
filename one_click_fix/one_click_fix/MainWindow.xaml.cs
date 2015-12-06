@@ -9,13 +9,21 @@ namespace one_click_fix
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// 
+
+    struct image
+    {
+        public byte[] pixels;
+        public int width;
+        public int height;
+    }
+
     public partial class MainWindow : Window
     {
-        protected byte[] originalImagePixels;
-        protected byte[] previewImagePixels;
-        protected BitmapImage originalImage;
-        mask maskPixels = new mask();
-        combine updater = new combine();
+        protected BitmapImage bitmapOriginalImage;
+
+        image originalImage = new image();
+        image previewImage = new image();
         byte[] currentMask;
 
         public MainWindow()
@@ -38,58 +46,60 @@ namespace one_click_fix
 
                 Uri uri = new Uri(openImageDialog.FileName);
 
-                originalImage = new BitmapImage(uri);
-                BitmapImage previewImage = new BitmapImage();
+                bitmapOriginalImage = new BitmapImage(uri);
+                BitmapImage bitmapPreviewImage = new BitmapImage();
 
-
-                previewImage.BeginInit();
-                    previewImage.UriSource = uri;
-                if (originalImage.Width < originalImage.Height)
+                bitmapPreviewImage.BeginInit();
+                bitmapPreviewImage.UriSource = uri;
+                if (bitmapOriginalImage.Width < bitmapOriginalImage.Height)
                 {
-                    previewImage.DecodePixelHeight = 60;
-                    double k = originalImage.Height / previewImage.DecodePixelHeight;
-                    previewImage.DecodePixelWidth /= (int)k;
+                    bitmapPreviewImage.DecodePixelHeight = 60;
+                    double k = bitmapOriginalImage.Height / bitmapPreviewImage.DecodePixelHeight;
+                    bitmapPreviewImage.DecodePixelWidth /= (int)k;
                 }
                 else
                 {
-                    previewImage.DecodePixelWidth = 110;
-                    double k = originalImage.Width / previewImage.DecodePixelWidth;
-                    previewImage.DecodePixelHeight /= (int)k;
+                    bitmapPreviewImage.DecodePixelWidth = 110;
+                    double k = bitmapOriginalImage.Width / bitmapPreviewImage.DecodePixelWidth;
+                    bitmapPreviewImage.DecodePixelHeight /= (int)k;
                 }
 
-                previewImage.EndInit();
+                bitmapPreviewImage.EndInit();
 
-                int originalStride = originalImage.PixelWidth * 4;
-                int originalSize = originalImage.PixelHeight * originalStride;
+                int originalStride = bitmapOriginalImage.PixelWidth * 4;
+                int originalSize = bitmapOriginalImage.PixelHeight * originalStride;
 
-                int previewStride = previewImage.PixelWidth * 4;
-                int previewlSize = previewImage.PixelHeight * previewImage.PixelWidth * 4;
+                int previewStride = bitmapPreviewImage.PixelWidth * 4;
+                int previewSize = bitmapPreviewImage.PixelHeight * previewStride;
 
-                originalImagePixels = new byte[originalSize];
-                previewImagePixels = new byte[previewlSize];
-                
+                originalImage.pixels = new byte[originalSize];
+                previewImage.pixels = new byte[previewSize];
 
-                originalImage.CopyPixels(originalImagePixels, originalStride, 0);
-                previewImage.CopyPixels(previewImagePixels, previewStride, 0);
+                bitmapOriginalImage.CopyPixels(originalImage.pixels, originalStride, 0);
+                bitmapPreviewImage.CopyPixels(previewImage.pixels, previewStride, 0);
 
-                
+                originalImage.width = (int)bitmapOriginalImage.Width;
+                originalImage.height = (int)bitmapOriginalImage.Height;
+
+                previewImage.width = (int)bitmapPreviewImage.Width;
+                previewImage.height = (int)bitmapPreviewImage.Height;
 
                 blackAndWhite_I.Visibility = Visibility.Visible;
-                currentMask = maskPixels.blackAndWhite(previewImagePixels, previewImage.PixelWidth, previewImage.PixelHeight);
-             __  // blackAndWhite_I.Source= BitmapSource.Create((int)previewImage.Width, (int)previewImage.Height, 96, 96, PixelFormats.Bgr32, null, previewImagePixels2, (int)previewImage.Width * 4);
-                blackAndWhite_I.Source = updater.applyFilter(previewImagePixels, previewImagePixels, 0.5, (int)previewImage.Width, (int)previewImage.Height);
+                currentMask = mask.blackAndWhite(previewImage);
+                blackAndWhite_I.Source = combine.applyFilter(currentMask, previewImage, 0.5);
+                mainImage_I.Source = bitmapOriginalImage;
             }
         }
 
         private void blackAndWhite_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            currentMask = maskPixels.blackAndWhite(originalImagePixels,originalImage.PixelWidth, originalImage.PixelHeight);
-            mainImage_I.Source = updater.applyFilter(currentMask, originalImagePixels, 1, (int)originalImage.Width, (int)originalImage.Height);
+            currentMask = mask.blackAndWhite(originalImage);
+            mainImage_I.Source = combine.applyFilter(currentMask, originalImage, 0.5);
         }
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            mainImage_I.Source = updater.applyFilter(currentMask, originalImagePixels, slider.Value, (int)originalImage.Width, (int)originalImage.Height);
+            mainImage_I.Source = combine.applyFilter(currentMask, originalImage, slider.Value);
         }
     }
 }

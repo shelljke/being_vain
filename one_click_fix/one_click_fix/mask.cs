@@ -9,17 +9,19 @@ namespace one_click_fix
 {
      class mask
     {
-        public byte[] blackAndWhite(byte[] imagePixels, int w, int h)
+        static public byte[] blackAndWhite(image currentImage)
         {
-            for (int x = 0; x < w; x++)
+            byte[] currentMask = currentImage.pixels.ToArray();
+
+            for (int x = 0; x < currentImage.width; x++)
             {
-                for (int y = 0; y < h; y++)
+                for (int y = 0; y < currentImage.height; y++)
                 {
-                    int index = y * w * 4 + 4 * x;
-                    imagePixels[index] = imagePixels[index + 1] = imagePixels[index + 2];
+                    int index = y * currentImage.width * 4 + 4 * x;
+                    currentMask[index] = currentMask[index + 1] = currentMask[index + 2];
                 }
             }
-            return imagePixels;
+            return currentMask;
         }
     }
 
