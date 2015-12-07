@@ -22,17 +22,20 @@ namespace one_click_fix
     {
         protected BitmapImage bitmapOriginalImage;
 
-        image originalImage = new image();
-        image previewImage = new image();
+         image processedImage = new image();
+         image previewImage = new image();
         byte[] currentMask;
 
         public MainWindow()
         {
             InitializeComponent();
+            blackAndWhite_I.Visibility = Visibility.Hidden;
+            nashville_I.Visibility = Visibility.Hidden;
         }
 
         private void start_B_Click(object sender, RoutedEventArgs e)
         {
+
             start_B.Visibility = Visibility.Hidden;
 
             Microsoft.Win32.OpenFileDialog openImageDialog = new Microsoft.Win32.OpenFileDialog();
@@ -43,63 +46,101 @@ namespace one_click_fix
                 string filename = openImageDialog.FileName;
                 mainImage_I.Visibility = Visibility.Visible;
                 blackAndWhite_I.Visibility = Visibility.Visible;
-
                 Uri uri = new Uri(openImageDialog.FileName);
-
-                bitmapOriginalImage = new BitmapImage(uri);
-                BitmapImage bitmapPreviewImage = new BitmapImage();
-
-                bitmapPreviewImage.BeginInit();
-                bitmapPreviewImage.UriSource = uri;
-                if (bitmapOriginalImage.Width < bitmapOriginalImage.Height)
-                {
-                    bitmapPreviewImage.DecodePixelHeight = 60;
-                    double k = bitmapOriginalImage.Height / bitmapPreviewImage.DecodePixelHeight;
-                    bitmapPreviewImage.DecodePixelWidth /= (int)k;
-                }
-                else
-                {
-                    bitmapPreviewImage.DecodePixelWidth = 110;
-                    double k = bitmapOriginalImage.Width / bitmapPreviewImage.DecodePixelWidth;
-                    bitmapPreviewImage.DecodePixelHeight /= (int)k;
-                }
-
-                bitmapPreviewImage.EndInit();
-
-                int originalStride = bitmapOriginalImage.PixelWidth * 4;
-                int originalSize = bitmapOriginalImage.PixelHeight * originalStride;
-
-                int previewStride = bitmapPreviewImage.PixelWidth * 4;
-                int previewSize = bitmapPreviewImage.PixelHeight * previewStride;
-
-                originalImage.pixels = new byte[originalSize];
-                previewImage.pixels = new byte[previewSize];
-
-                bitmapOriginalImage.CopyPixels(originalImage.pixels, originalStride, 0);
-                bitmapPreviewImage.CopyPixels(previewImage.pixels, previewStride, 0);
-
-                originalImage.width = (int)bitmapOriginalImage.Width;
-                originalImage.height = (int)bitmapOriginalImage.Height;
-
-                previewImage.width = (int)bitmapPreviewImage.Width;
-                previewImage.height = (int)bitmapPreviewImage.Height;
+                BitmapImage bitmapImage = new BitmapImage(uri);
+                /////////////
+                prepareImages.openImage(bitmapImage, out previewImage, out processedImage);
 
                 blackAndWhite_I.Visibility = Visibility.Visible;
                 currentMask = mask.blackAndWhite(previewImage);
                 blackAndWhite_I.Source = combine.applyFilter(currentMask, previewImage, 0.5);
+
+                nashville_I.Visibility = Visibility.Visible;
+                currentMask = mask.nashville(previewImage);
+                nashville_I.Source = combine.applyFilter(currentMask, previewImage, 0.5);
+
                 mainImage_I.Source = bitmapOriginalImage;
+
             }
         }
-
+    
         private void blackAndWhite_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            currentMask = mask.blackAndWhite(originalImage);
-            mainImage_I.Source = combine.applyFilter(currentMask, originalImage, 0.5);
+            currentMask = mask.blackAndWhite(processedImage);
+            mainImage_I.Source = combine.applyFilter(currentMask, processedImage, 0.5);
+
         }
+         private void nashville_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            currentMask = mask.nashville(processedImage);
+            mainImage_I.Source = combine.applyFilter(currentMask, processedImage, 0.5);
+        }
+    
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            mainImage_I.Source = combine.applyFilter(currentMask, originalImage, slider.Value);
+           mainImage_I.Source = combine.applyFilter(currentMask, processedImage, slider.Value);
+        }
+    }
+    class prepareImages
+    {
+        static BitmapImage bitmapPreviewImage = new BitmapImage();
+        static BitmapImage bitmapProcessedImage = new BitmapImage();
+
+      
+        static public void openImage(BitmapImage currentImage, out image previewImage, out image processedImage)
+        {
+
+            bitmapPreviewImage.BeginInit();
+            bitmapPreviewImage.UriSource = currentImage.UriSource ;
+            if (currentImage.Width < currentImage.Height)
+            {
+                bitmapPreviewImage.DecodePixelHeight = 60;
+                double k = currentImage.Height / bitmapPreviewImage.DecodePixelHeight;
+                bitmapPreviewImage.DecodePixelWidth /= (int)k;
+            }
+            else
+            {
+                bitmapPreviewImage.DecodePixelWidth = 110;
+                double k = currentImage.Width / bitmapPreviewImage.DecodePixelWidth;
+                bitmapPreviewImage.DecodePixelHeight /= (int)k;
+            }
+            bitmapPreviewImage.EndInit();
+            ////////////////////////////////////////
+            bitmapProcessedImage.BeginInit();
+            bitmapProcessedImage.UriSource = currentImage.UriSource;
+            if (currentImage.Width < currentImage.Height)
+            {
+                bitmapProcessedImage.DecodePixelHeight = 500;
+                double k = currentImage.Height / bitmapProcessedImage.DecodePixelHeight;
+                bitmapProcessedImage.DecodePixelWidth /= (int)k;
+            }
+            else
+            {
+                bitmapProcessedImage.DecodePixelWidth = 700;
+                double k = currentImage.Width / bitmapProcessedImage.DecodePixelWidth;
+                bitmapProcessedImage.DecodePixelHeight /= (int)k;
+            }
+            bitmapProcessedImage.EndInit();
+
+
+            int processedStride = bitmapProcessedImage.PixelWidth * 4;
+            int processedSize = bitmapProcessedImage.PixelHeight * processedStride;
+
+            int previewStride = bitmapPreviewImage.PixelWidth * 4;
+            int previewSize = bitmapPreviewImage.PixelHeight * previewStride;
+
+            processedImage.pixels = new byte[processedSize];
+            previewImage.pixels = new byte[previewSize];
+
+            bitmapProcessedImage.CopyPixels(processedImage.pixels, processedStride, 0);
+            bitmapPreviewImage.CopyPixels(previewImage.pixels, previewStride, 0);
+
+            processedImage.width = (int)bitmapProcessedImage.Width;
+            processedImage.height = (int)bitmapProcessedImage.Height;
+
+            previewImage.width = (int)bitmapPreviewImage.Width;
+            previewImage.height = (int)bitmapPreviewImage.Height;           
         }
     }
 }
