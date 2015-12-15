@@ -1,35 +1,41 @@
-﻿
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SimpleImageProcessing;
 using Color = System.Drawing.Color;
 
 namespace one_click_fix
 {
     partial class Combine
     {
-        static public Bitmap ApplyFilter(Bitmap mask, Bitmap currentImage, double power)
+        public static Bitmap ApplyFilter(Bitmap mask, Bitmap image, double power)
         {
-           int w = currentImage.Width;
-           int h = currentImage.Height;
-            //Enumerable.Range(0, (int)w).AsParallel().WithDegreeOfParallelism(2).ForAll(x =>
-            for (int x = 0; x < (int)w; x++)
+            int w = image.Width;
+            int h = image.Height;
+            ImagerBitmap currentImage = new ImagerBitmap(image.Clone() as Bitmap);
+            ImagerBitmap currentMask = new ImagerBitmap(mask.Clone() as Bitmap);
+
+           Enumerable.Range(0, (int)w).AsParallel().ForAll(x =>
             {
-                for (int y = 0; y < (int) h; y++)
-                {
-                    Color maskColor = mask.GetPixel(x, y);
-                    Color currentImageColor = mask.GetPixel(x, y);
-                    Color resultColor = Color.FromArgb(255, 
-                        (byte) (currentImageColor.R*(1 - power) + maskColor.R*power),
-                        (byte) (currentImageColor.G*(1 - power) + maskColor.G*power),
-                        (byte) (currentImageColor.B*(1 - power) + maskColor.B*power));
+                for (int y = 0; y < (int)h; y++)
+                {                        
+                    Color currentImageColor = currentImage.GetPixel(x, y);
+                    Color maskColor = currentMask.GetPixel(x, y);
+                    Color resultColor = Color.FromArgb(255,
+                        (byte)(currentImageColor.R * (1 - power) + maskColor.R * power),
+                        (byte)(currentImageColor.G * (1 - power) + maskColor.G * power),
+                        (byte)(currentImageColor.B * (1 - power) + maskColor.B * power));
                     currentImage.SetPixel(x, y, resultColor);
                 }
-            }
-            //});
-            return currentImage;
-        }
+            });
+            
+            currentImage.UnlockBitmap();
+            currentMask.UnlockBitmap();
 
+          return currentImage.Bitmap;
+        }
     }
+
 }
+

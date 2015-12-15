@@ -38,14 +38,14 @@ namespace one_click_fix
             if (currentImage.Width < currentImage.Height)
             {
                 height = maxSize;
-                double k = (double)currentImage.Height / currentImage.Height;
+                double k = currentImage.Height / height;
                 width /= (int)k;
             }
             else
             {
                 width = maxSize;
-                double k = (double)currentImage.Width / width;
-                height /= (int)k;
+                double k = currentImage.Width / width;
+                height /= k;
             }
             return new Bitmap(currentImage, (int)width, (int)height);
         }
@@ -54,8 +54,10 @@ namespace one_click_fix
               switch (mask)
               {
                    case Masks.BlackAndWhite:
-                   return Mask.BlackAndWhite((Bitmap) currentImage);
-              }
+                   return Mask.BlackAndWhite(currentImage.Clone() as Bitmap);
+                    case Masks.Nashville:
+                 return Mask.Nashville(currentImage.Clone() as Bitmap);
+            }
             throw new Exception("Несуществующая маска");
         }
     }

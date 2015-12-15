@@ -1,38 +1,49 @@
 ﻿using System.Drawing;
+using System.Linq;
+using SimpleImageProcessing;
 
 namespace one_click_fix
 {
     static class Mask
     {
-        static public Bitmap BlackAndWhite(Bitmap currentImage)
+        static public Bitmap BlackAndWhite(Bitmap mask)
         {
-            Bitmap currentMask = (Bitmap) currentImage.Clone();          
-            for (int x = 0; x < currentImage.Width; x++)
-            {
-                for (int y = 0; y < currentImage.Height; y++)
-                {
-                    Color color = currentMask.GetPixel(x,y);
-                    color = Color.FromArgb(255, color.G, color.G, color.G);
-                    currentMask.SetPixel(x,y, color);
-                }
-            }
-            return currentMask;
+            int w = mask.Width;
+            int h = mask.Height;
+            ImagerBitmap currentMask = new ImagerBitmap(mask);
+
+            Enumerable.Range(0, (int)w).AsParallel().ForAll(x =>
+           {
+               for (int y = 0; y < h; y++)
+               {
+                   var color = currentMask.GetPixel(x, y);
+                   color = Color.FromArgb(255, color.G, color.G, color.G);
+                   currentMask.SetPixel(x, y, color);
+               }
+           });
+
+            currentMask.UnlockBitmap();
+            return currentMask.Bitmap;
         }
 
-        //static public byte[] Nashville(Bitmap currentImage)
-        //{
-        //    currentMask = currentImage.Pixels.ToArray();
-        //    float brightness;
-        //    for (int x = 0; x < currentImage.Width; x++)
-        //    {
-        //        for (int y = 0; y < currentImage.Height; y++)
-        //        {
-        //            int index = y * currentImage.Width * 4 + 4 * x;
-        //            brightness = (float)(currentImage.Pixels[index + 0] + currentImage.Pixels[index + 1] + currentImage.Pixels[index + 2]) / 765;
-        //            currentMask[index] = (byte)(255 - (255 * brightness));
-        //        }
-        //    }
-        //    return currentMask;
-        //}
+        public static Bitmap Nashville(Bitmap mask)
+        {
+            int w = mask.Width;
+            int h = mask.Height;
+            ImagerBitmap currentMask = new ImagerBitmap(mask);
+
+            Enumerable.Range(0, (int)w).AsParallel().ForAll(x =>
+            {
+                for (int y = 0; y < h; y++)
+                {                
+                    Color color = currentMask.GetPixel(x, y);
+                    color = Color.FromArgb(255, color.R, color.G, (int)(color.B*(1- color.GetBrightness())));
+                    currentMask.SetPixel(x, y, color);
+                }
+            });
+
+            currentMask.UnlockBitmap();
+            return currentMask.Bitmap;
+        }
     }
 }

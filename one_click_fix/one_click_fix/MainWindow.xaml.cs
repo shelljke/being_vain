@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Drawing;
-using System.Drawing.Imaging;
-using AForge.Imaging;
-using AForge.Imaging.Filters;
+using System.Windows.Controls;
+using SimpleImageProcessing;
+
+
 
 namespace one_click_fix
 {
@@ -45,11 +45,11 @@ namespace one_click_fix
                 BlackAndWhite_I.Visibility = Visibility.Visible;
 
                 OriginalImage = new Bitmap(filename);
+
                 Bitmap previewImage = OriginalImage.Resize(110);
 
-                previewImage= previewImage.GetMask(Masks.BlackAndWhite);
-
-                BlackAndWhite_I.Source = previewImage.GetSource();
+                BlackAndWhite_I.Source = previewImage.GetMask(Masks.BlackAndWhite).GetSource();
+                Nashville_I.Source = previewImage.GetMask(Masks.Nashville).GetSource();
 
                 mainImage_I.Source = OriginalImage.GetSource();                        
             }
@@ -58,19 +58,23 @@ namespace one_click_fix
         private void BlackAndWhite_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             CurrentMask = OriginalImage.GetMask(Masks.BlackAndWhite);
-            mainImage_I.Source = Combine.ApplyFilter(CurrentMask, OriginalImage, 0.5).GetSource();
-            BlackAndWhite_I.Source = OriginalImage.GetSource();
+            slider.Value = 0.5;
+            //mainImage_I.Source = Combine.ApplyFilter(CurrentMask, OriginalImage, 0).GetSource();
+            image.Source = CurrentMask.GetSource();
+
         }
          private void Nashville_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // currentMask = Mask.Nashville(processedImage);
-            //mainImage_I.Source = Combine.ApplyFilter(currentMask, processedImage, 0.5);
+            CurrentMask = OriginalImage.GetMask(Masks.Nashville);
+            slider.Value = 0.5;
+            // mainImage_I.Source = Combine.ApplyFilter(CurrentMask, OriginalImage, 0).GetSource();
+             image.Source = CurrentMask.GetSource();
         }
     
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-           //mainImage_I.Source = Combine.ApplyFilter(currentMask, processedImage, slider.Value);
+            image.Opacity = slider.Value;
         }
     }
     

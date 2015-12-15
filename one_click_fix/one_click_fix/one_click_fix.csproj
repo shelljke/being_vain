@@ -106,6 +106,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BitmapExtensions.cs" />
+    <Compile Include="BitmapImage.cs" />
     <Compile Include="combine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -9,8 +9,10 @@
     <Grid>
         <Button x:Name="start_B" Content="Начать" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="75" Click="start_B_Click"/>
         <Image x:Name="mainImage_I" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+          <Image x:Name="image" Opacity="0.5"/>
+        <Slider x:Name="slider" Margin="10,0,10,4" Maximum="1" ValueChanged="slider_ValueChanged" Height="21" VerticalAlignment="Bottom"/>
         <Image x:Name="BlackAndWhite_I" Margin="10,0,0,25" HorizontalAlignment="Left" Width="110" Height="60" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,1.5" PreviewMouseLeftButtonDown="BlackAndWhite_I_PreviewMouseLeftButtonDown" Source="italiya-more-pirs-noch-groza.jpg" Visibility="Visible"/>
         <Image x:Name="Nashville_I" Margin="125,0,0,25" HorizontalAlignment="Left" Width="110" Height="60" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,1.5" PreviewMouseLeftButtonDown="Nashville_I_PreviewMouseLeftButtonDown" Source="italiya-more-pirs-noch-groza.jpg" Visibility="Visible"/>
-        <Slider x:Name="slider" Margin="10,0,10,4" Maximum="1" ValueChanged="slider_ValueChanged" Height="21" VerticalAlignment="Bottom"/>
+
     </Grid>
 </Window>

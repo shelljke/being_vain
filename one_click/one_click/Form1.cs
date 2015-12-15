@@ -146,14 +146,14 @@ namespace one_click
 
                 if (origin_size_image.Width >= 1340 && origin_size_image.Width >= origin_size_image.Height)
                 {
-                    float k = (float)origin_size_image.Width / 1340;
-                    w = 1340;
+                    float k = (float)origin_size_image.Width / origin_size_image.Width;
+                    w = origin_size_image.Width;
                     h = origin_size_image.Height / k;
                 }
                 if (origin_size_image.Height >= 860 && origin_size_image.Width < origin_size_image.Height)
                 {
-                    float k = (float)origin_size_image.Height / 860;
-                    h = 860;
+                    float k = (float)origin_size_image.Height / origin_size_image.Height;
+                    h = origin_size_image.Height;
                     w = origin_size_image.Width / k;
                 }
                 image_l = new Bitmap(origin_size_image, (int)w, (int)h);
@@ -599,7 +599,7 @@ namespace one_click
             GC.Collect();
             dst = new ImagerBitmap(image_l);
 
-            Enumerable.Range(0, (int)w - 1).AsParallel().ForAll(x =>
+            Enumerable.Range(0, (int)w - 1).AsParallel().WithDegreeOfParallelism(1).ForAll(x =>
                    {
                        var color = new Color();
                        for (int y = 0; y < (int)h - 1; y++)
