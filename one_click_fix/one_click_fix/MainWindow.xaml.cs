@@ -1,10 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Drawing;
-using System.Windows.Controls;
-using SimpleImageProcessing;
-
-
 
 namespace one_click_fix
 {

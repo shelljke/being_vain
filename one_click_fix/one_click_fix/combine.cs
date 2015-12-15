@@ -1,13 +1,11 @@
 ﻿using System.Drawing;
 using System.Linq;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using SimpleImageProcessing;
 using Color = System.Drawing.Color;
 
 namespace one_click_fix
 {
-    partial class Combine
+    class Combine
     {
         public static Bitmap ApplyFilter(Bitmap mask, Bitmap image, double power)
         {
@@ -16,9 +14,9 @@ namespace one_click_fix
             ImagerBitmap currentImage = new ImagerBitmap(image.Clone() as Bitmap);
             ImagerBitmap currentMask = new ImagerBitmap(mask.Clone() as Bitmap);
 
-           Enumerable.Range(0, (int)w).AsParallel().ForAll(x =>
+           Enumerable.Range(0, w).AsParallel().ForAll(x =>
             {
-                for (int y = 0; y < (int)h; y++)
+                for (int y = 0; y < h; y++)
                 {                        
                     Color currentImageColor = currentImage.GetPixel(x, y);
                     Color maskColor = currentMask.GetPixel(x, y);

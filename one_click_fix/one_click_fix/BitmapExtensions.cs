@@ -22,11 +22,6 @@ namespace one_click_fix
             }
         }
 
-        static Bitmap GetMask(this Bitmap image)
-        {
-            return null;
-        }
-
        public static Bitmap Resize(this Bitmap image, int width, int height)
         {
             return new Bitmap(image, width, height);

@@ -12,7 +12,7 @@ namespace one_click_fix
             int h = mask.Height;
             ImagerBitmap currentMask = new ImagerBitmap(mask);
 
-            Enumerable.Range(0, (int)w).AsParallel().ForAll(x =>
+            Enumerable.Range(0, w).AsParallel().ForAll(x =>
            {
                for (int y = 0; y < h; y++)
                {
@@ -32,7 +32,7 @@ namespace one_click_fix
             int h = mask.Height;
             ImagerBitmap currentMask = new ImagerBitmap(mask);
 
-            Enumerable.Range(0, (int)w).AsParallel().ForAll(x =>
+            Enumerable.Range(0, w).AsParallel().ForAll(x =>
             {
                 for (int y = 0; y < h; y++)
                 {                
