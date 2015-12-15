@@ -1,43 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+﻿using System.Drawing;
 
 namespace one_click_fix
 {
-     class mask
+    static class Mask
     {
-        static public byte[] blackAndWhite(image currentImage)
+        static public Bitmap BlackAndWhite(Bitmap currentImage)
         {
-            byte[] currentMask = currentImage.pixels.ToArray();
-
-            for (int x = 0; x < currentImage.width; x++)
+            Bitmap currentMask = (Bitmap) currentImage.Clone();          
+            for (int x = 0; x < currentImage.Width; x++)
             {
-                for (int y = 0; y < currentImage.height; y++)
+                for (int y = 0; y < currentImage.Height; y++)
                 {
-                    int index = y * currentImage.width * 4 + 4 * x;
-                    currentMask[index] = currentMask[index + 1] = currentMask[index + 2];
+                    Color color = currentMask.GetPixel(x,y);
+                    color = Color.FromArgb(255, color.G, color.G, color.G);
+                    currentMask.SetPixel(x,y, color);
                 }
             }
             return currentMask;
         }
 
-        static public byte[] nashville(image currentImage)
-        {
-            byte[] currentMask = currentImage.pixels.ToArray();
-            float brightness;
-            for (int x = 0; x < currentImage.width; x++)
-            {
-                for (int y = 0; y < currentImage.height; y++)
-                {
-                    int index = y * currentImage.width * 4 + 4 * x;
-                    brightness= (float)(currentImage.pixels[index + 0] + currentImage.pixels[index + 1] + currentImage.pixels[index + 2]) / 765;
-                    currentMask[index] = (byte)(255-(255*brightness));
-                }
-            }
-            return currentMask;
-        }
+        //static public byte[] Nashville(Bitmap currentImage)
+        //{
+        //    currentMask = currentImage.Pixels.ToArray();
+        //    float brightness;
+        //    for (int x = 0; x < currentImage.Width; x++)
+        //    {
+        //        for (int y = 0; y < currentImage.Height; y++)
+        //        {
+        //            int index = y * currentImage.Width * 4 + 4 * x;
+        //            brightness = (float)(currentImage.Pixels[index + 0] + currentImage.Pixels[index + 1] + currentImage.Pixels[index + 2]) / 765;
+        //            currentMask[index] = (byte)(255 - (255 * brightness));
+        //        }
+        //    }
+        //    return currentMask;
+        //}
     }
 }
