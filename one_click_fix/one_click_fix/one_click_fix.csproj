@@ -116,6 +116,7 @@
   <ItemGroup>
     <Compile Include="mask.cs" />
     <Compile Include="Masks.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,6 +1,6 @@
 namespace one_click_fix
 {
-    enum Masks
+    public enum Masks
     {
         BlackAndWhite,
         Nashville,

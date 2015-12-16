@@ -3,16 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:one_click_fix"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="900">
     <Grid>
-        <Button x:Name="start_B" Content="Начать" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="75" Click="start_B_Click"/>
-        <Image x:Name="mainImage_I" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
-          <Image x:Name="image" Opacity="0.5"/>
-        <Slider x:Name="slider" Margin="10,0,10,4" Maximum="1" ValueChanged="slider_ValueChanged" Height="21" VerticalAlignment="Bottom"/>
-        <Image x:Name="BlackAndWhite_I" Margin="10,0,0,25" HorizontalAlignment="Left" Width="110" Height="60" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,1.5" PreviewMouseLeftButtonDown="BlackAndWhite_I_PreviewMouseLeftButtonDown" Source="italiya-more-pirs-noch-groza.jpg" Visibility="Visible"/>
-        <Image x:Name="Nashville_I" Margin="125,0,0,25" HorizontalAlignment="Left" Width="110" Height="60" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,1.5" PreviewMouseLeftButtonDown="Nashville_I_PreviewMouseLeftButtonDown" Source="italiya-more-pirs-noch-groza.jpg" Visibility="Visible"/>
-
+        <Button x:Name="StartB" Content="Начать" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="75" Click="start_B_Click"/>
+        <Image x:Name="MainImageI" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+        <Image x:Name="Image" Opacity="0.5"/>
+        <ListView  Visibility="Collapsed"  x:Name="FilterList" VerticalAlignment="Bottom"  SelectionChanged="FilterList_OnSelectionChanged" Background="#CC000000">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="3">
+                        <Image Source="{Binding PreviewImage}"/>
+                        <Slider Value="{Binding SliderValue}"  Maximum="1" VerticalAlignment="Bottom" ValueChanged="slider_ValueChanged" Visibility="{Binding SliderVisibility}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>

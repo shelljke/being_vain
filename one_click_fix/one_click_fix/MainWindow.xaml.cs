@@ -1,5 +1,13 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows;
 using System.Drawing;
+using System.Runtime.CompilerServices;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using one_click_fix.Annotations;
 
 namespace one_click_fix
 {
@@ -7,25 +15,77 @@ namespace one_click_fix
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     /// 
+    public class FilterItem : INotifyPropertyChanged
+    {
+        public ImageSource PreviewImage
+        {
+            get { return previewImage; }
+            set
+            {
+                if (previewImage != value)
+                {
+                    previewImage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private ImageSource previewImage;
 
-    
+        public Visibility SliderVisibility
+        {
+            get { return sliderVisibility; }
+            set
+            {
+                if (sliderVisibility != value)
+                {
+                    sliderVisibility = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private Visibility sliderVisibility;
+
+        public double SliderValue
+        {
+            get { return sliderValue; }
+            set
+            {
+                if (sliderValue != value)
+                {
+                    sliderValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double sliderValue; 
+        public Masks MaskName { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
     public partial class MainWindow : Window
     {
 
         public Bitmap OriginalImage;
         public Bitmap CurrentMask;
+        public ObservableCollection<FilterItem> FilterCollection = new ObservableCollection<FilterItem>();
 
         public MainWindow()
         {
             InitializeComponent();
-            BlackAndWhite_I.Visibility = Visibility.Hidden;
-            Nashville_I.Visibility = Visibility.Hidden;
         }
 
         private void start_B_Click(object sender, RoutedEventArgs e)
         {
 
-            start_B.Visibility = Visibility.Hidden;
+            StartB.Visibility = Visibility.Hidden;
 
             Microsoft.Win32.OpenFileDialog openImageDialog = new Microsoft.Win32.OpenFileDialog
             {
@@ -35,42 +95,52 @@ namespace one_click_fix
             if (result == true)
             {
                 string filename = openImageDialog.FileName;
-                mainImage_I.Visibility = Visibility.Visible;
-                Nashville_I.Visibility = Visibility.Visible;
-                BlackAndWhite_I.Visibility = Visibility.Visible;
+                MainImageI.Visibility = Visibility.Visible;
+
+                FilterList.Visibility = Visibility.Visible;
 
                 OriginalImage = new Bitmap(filename);
 
                 Bitmap previewImage = OriginalImage.Resize(110);
+                InitializationPreview(previewImage);
 
-                BlackAndWhite_I.Source = previewImage.GetMask(Masks.BlackAndWhite).GetSource();
-                Nashville_I.Source = previewImage.GetMask(Masks.Nashville).GetSource();
-
-                mainImage_I.Source = OriginalImage.GetSource();                        
+                MainImageI.Source = OriginalImage.GetSource();
             }
         }
-    
-        private void BlackAndWhite_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            CurrentMask = OriginalImage.GetMask(Masks.BlackAndWhite);
-            slider.Value = 0.5;
-            //mainImage_I.Source = Combine.ApplyFilter(CurrentMask, OriginalImage, 0).GetSource();
-            image.Source = CurrentMask.GetSource();
 
-        }
-         private void Nashville_I_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        void InitializationPreview(Bitmap image)
         {
-            CurrentMask = OriginalImage.GetMask(Masks.Nashville);
-            slider.Value = 0.5;
-            // mainImage_I.Source = Combine.ApplyFilter(CurrentMask, OriginalImage, 0).GetSource();
-             image.Source = CurrentMask.GetSource();
+            foreach (Masks mask in Enum.GetValues(typeof(Masks)))
+            {
+                FilterCollection.Add(new FilterItem
+                {MaskName = mask,
+                    PreviewImage = image.GetMask(mask).GetSource(),
+                    SliderVisibility = Visibility.Collapsed
+                });
+            }
+            FilterList.ItemsSource = FilterCollection;
         }
-    
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            image.Opacity = slider.Value;
+            var slider = (sender as Slider);
+            if (slider == null) return;
+            Image.Opacity = slider.Value;
+        }
+
+        private void FilterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var filterItem = FilterList.SelectedItem as FilterItem;
+            filterItem.SliderValue = 0.5;
+            Image.Source = OriginalImage.GetMask(filterItem.MaskName).GetSource();
+            foreach (var item in FilterCollection)
+            {
+                item.SliderVisibility = Visibility.Collapsed;
+            }
+            filterItem.SliderVisibility = Visibility.Visible;
+            
+
         }
     }
-    
+
 }
