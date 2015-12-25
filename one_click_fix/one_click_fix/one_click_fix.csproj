@@ -108,6 +108,7 @@
     <Compile Include="BitmapExtensions.cs" />
     <Compile Include="BitmapImage.cs" />
     <Compile Include="combine.cs" />
+    <Compile Include="FilterItem.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

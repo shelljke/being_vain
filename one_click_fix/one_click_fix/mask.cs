@@ -12,7 +12,7 @@ namespace one_click_fix
             int h = mask.Height;
             ImagerBitmap currentMask = new ImagerBitmap(mask);
 
-            Enumerable.Range(0, w).AsParallel().WithDegreeOfParallelism(4).ForAll(x =>
+            Enumerable.Range(0, w).AsParallel().ForAll(x =>
            {
                for (int y = 0; y < h; y++)
                {
@@ -37,7 +37,13 @@ namespace one_click_fix
                 for (int y = 0; y < h; y++)
                 {                
                     Color color = currentMask.GetPixel(x, y);
-                    color = Color.FromArgb(255, color.R, color.G, (int)(color.B*(1- color.GetBrightness())));
+                    float blue = color.B;
+                    float red = color.R;
+                   blue = blue + 150*(1 - color.GetBrightness());
+                    red = color.G*(color.GetBrightness());
+                    if (blue > 255) blue = 255;
+                    if (red > 255) red = 255;
+                    color = Color.FromArgb(255, (int)red, color.G, (int)blue);             
                     currentMask.SetPixel(x, y, color);
                 }
             });

@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Media.Imaging;
 
 namespace one_click_fix
@@ -22,14 +24,14 @@ namespace one_click_fix
             }
         }
 
-       public static Bitmap Resize(this Bitmap image, int width, int height)
+        public static Bitmap Resize(this Bitmap image, int width, int height)
         {
             return new Bitmap(image, width, height);
         }
 
-       public static Bitmap Resize(this Bitmap currentImage, int maxSize)
+        public static Bitmap Resize(this Bitmap currentImage, int maxSize)
         {
-            double width=currentImage.Width, height=currentImage.Height;
+            double width = currentImage.Width, height = currentImage.Height;
             if (currentImage.Width < currentImage.Height)
             {
                 height = maxSize;
@@ -44,16 +46,26 @@ namespace one_click_fix
             }
             return new Bitmap(currentImage, (int)width, (int)height);
         }
-         public static Bitmap GetMask(this Bitmap currentImage, Masks mask)
+        public static Bitmap GetMask(this Bitmap currentImage, Masks mask)
         {
-              switch (mask)
-              {
-                   case Masks.BlackAndWhite:
-                   return Mask.BlackAndWhite(currentImage.Clone() as Bitmap);
-                    case Masks.Nashville:
-                 return Mask.Nashville(currentImage.Clone() as Bitmap);
+            var asm = Assembly.GetExecutingAssembly();
+            var filterTypes = asm.GetTypes().Where(t => t.IsSubclassOf(typeof (FilterBase)) && !t.IsAbstract);
+
+            var filters = filterTypes.Select(Activator.CreateInstance);
+           
+            
+
+            var mi = typeof(Mask).GetMethod(mask.ToString());
+            if (mi == null)
+            {
+                throw new Exception("Несуществующая маска");
             }
-            throw new Exception("Несуществующая маска");
+            return (Bitmap)mi.Invoke(null, new object[] { currentImage.Clone() as Bitmap });
         }
+    }
+
+    public abstract class FilterBase
+    {
+        
     }
 }

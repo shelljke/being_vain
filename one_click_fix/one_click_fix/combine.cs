@@ -15,7 +15,7 @@ namespace one_click_fix
             ImagerBitmap currentImage = new ImagerBitmap(image.Clone() as Bitmap);
             ImagerBitmap currentMask = new ImagerBitmap(mask.Clone() as Bitmap);
 
-           Enumerable.Range(0, w).AsParallel().WithDegreeOfParallelism(4).ForAll(x =>
+           Enumerable.Range(0, w).AsParallel().ForAll(x =>
             {
                 for (int y = 0; y < h; y++)
                 {                        
