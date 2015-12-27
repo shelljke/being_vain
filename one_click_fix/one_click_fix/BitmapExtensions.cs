@@ -1,8 +1,5 @@
-using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Media.Imaging;
 
 namespace one_click_fix
@@ -46,26 +43,5 @@ namespace one_click_fix
             }
             return new Bitmap(currentImage, (int)width, (int)height);
         }
-        public static Bitmap GetMask(this Bitmap currentImage, Masks mask)
-        {
-            var asm = Assembly.GetExecutingAssembly();
-            var filterTypes = asm.GetTypes().Where(t => t.IsSubclassOf(typeof (FilterBase)) && !t.IsAbstract);
-
-            var filters = filterTypes.Select(Activator.CreateInstance);
-           
-            
-
-            var mi = typeof(Mask).GetMethod(mask.ToString());
-            if (mi == null)
-            {
-                throw new Exception("Несуществующая маска");
-            }
-            return (Bitmap)mi.Invoke(null, new object[] { currentImage.Clone() as Bitmap });
-        }
-    }
-
-    public abstract class FilterBase
-    {
-        
     }
 }

@@ -7,7 +7,7 @@ namespace one_click_fix
 {
     class Combine
     {
-        public static Bitmap ApplyFilter(Bitmap mask, Bitmap image, double power)
+        public Bitmap ApplyFilter(Bitmap mask, Bitmap image, double power)
         {
             
             int w = image.Width;

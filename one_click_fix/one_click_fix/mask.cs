@@ -39,7 +39,7 @@ namespace one_click_fix
                     Color color = currentMask.GetPixel(x, y);
                     float blue = color.B;
                     float red = color.R;
-                   blue = blue + 150*(1 - color.GetBrightness());
+                    blue = blue + 150*(1 - color.GetBrightness());
                     red = color.G*(color.GetBrightness());
                     if (blue > 255) blue = 255;
                     if (red > 255) red = 255;

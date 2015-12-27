@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>one_click_fix</RootNamespace>
     <AssemblyName>one_click_fix</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -107,7 +107,9 @@
     </Compile>
     <Compile Include="BitmapExtensions.cs" />
     <Compile Include="BitmapImage.cs" />
+    <Compile Include="Filters\BlackAndWhite.cs" />
     <Compile Include="combine.cs" />
+    <Compile Include="IFilter.cs" />
     <Compile Include="FilterItem.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -115,8 +117,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mask.cs" />
-    <Compile Include="Masks.cs" />
+    <Compile Include="Filters\Nashville.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
