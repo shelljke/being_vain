@@ -76,6 +76,9 @@
       <HintPath>..\packages\Accord.Statistics.3.0.2\lib\net45\Accord.Statistics.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Common">
+      <HintPath>..\Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -106,10 +109,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BitmapExtensions.cs" />
-    <Compile Include="BitmapImage.cs" />
-    <Compile Include="Filters\BlackAndWhite.cs" />
     <Compile Include="combine.cs" />
-    <Compile Include="IFilter.cs" />
     <Compile Include="FilterItem.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -117,7 +117,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Filters\Nashville.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

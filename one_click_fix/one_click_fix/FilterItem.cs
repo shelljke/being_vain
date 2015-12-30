@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using one_click_fix.Annotations;
+using Common;
 
 namespace one_click_fix
 {

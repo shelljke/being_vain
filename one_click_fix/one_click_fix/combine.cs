@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Linq;
-using SimpleImageProcessing;
 using Color = System.Drawing.Color;
+using Common;
 
 namespace one_click_fix
 {
