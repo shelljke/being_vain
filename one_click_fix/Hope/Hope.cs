@@ -4,7 +4,7 @@ using Common;
 
 namespace Nashville
 {
-    public class Nashville : IFilter
+    public class Hope : IFilter
     {
         public Bitmap ApplyFilter(Bitmap mask)
         {
@@ -21,9 +21,26 @@ namespace Nashville
                     float green = color.G;
                     float blue = color.B;
 
-                    red = 224f/255f*red + 31;
-                    green = 236f/255f*green;
-                    blue = 59f/255f*blue + 102;
+                    if (color.GetBrightness() <= 0.35)
+                    {
+                        red = 0;
+                        green = 50;
+                        blue = 77;
+                    }
+
+                    if (color.GetBrightness() > 0.35 & color.GetBrightness() <= 0.55)
+                    {
+                        red = 215;
+                        green = 26;
+                        blue = 33;
+                    }
+                    if (color.GetBrightness() > 0.55)
+                    {
+                        red = 252;
+                        green = 228;
+                        blue = 168;
+                    }
+
                     color = Color.FromArgb(255, (int)red, (int)green, (int)blue);
                     currentMask.SetPixel(x, y, color);
                 }

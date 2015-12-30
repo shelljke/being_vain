@@ -24,9 +24,8 @@ namespace one_click_fix
             InitializeComponent();
         }
 
-        private void Start_B_Click(object sender, RoutedEventArgs e)
+        private bool OpenImage()
         {
-            
             Microsoft.Win32.OpenFileDialog openImageDialog = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = "Файл изображения (.jpg)|*.jpg"
@@ -37,22 +36,33 @@ namespace one_click_fix
                 FilterCollection.Clear();
                 string filename = openImageDialog.FileName;
 
-                MainImageI.Visibility = Visibility.Visible;
-                FilterList.Visibility = Visibility.Visible;
-
-                SaveB.Visibility = Visibility.Visible;
-
                 OriginalImage = new Bitmap(filename);
 
                 Bitmap previewImage = OriginalImage.Resize(110);
                 InitializationPreview(previewImage);
 
-                StartB.Content="Открыть изображение";
-                StartB.Margin= new Thickness(0, 10, 10, 0);
-                StartB.VerticalAlignment = VerticalAlignment.Top;
-                StartB.HorizontalAlignment = HorizontalAlignment.Right;
+                StartB.Visibility = Visibility.Collapsed;
                 MainImageI.Source = OriginalImage.GetSource();
                 Image.Source = OriginalImage.GetSource();
+                return true;
+            }
+            return false;
+        }
+        private void Start_B_Click(object sender, RoutedEventArgs e)
+        {
+           if( OpenImage()==true)
+            {
+                MainImageI.Visibility = Visibility.Visible;
+                FilterList.Visibility = Visibility.Visible;
+                SaveB.Visibility = Visibility.Visible;
+                OpenB.Visibility = Visibility.Visible;
+            }
+        }
+        private void OpenB_Click(object sender, RoutedEventArgs e)
+        {
+            if (OpenImage() == true)
+            {
+                SaveB.IsEnabled = false;
             }
         }
 
@@ -121,7 +131,7 @@ namespace one_click_fix
         private void FilterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var filterItem = FilterList.SelectedItem as FilterItem;
-            if (filterItem==null) return;
+            if (filterItem == null) return;
             filterItem.SliderValue = 0.5;
             Image.Source = filterItem.Filter.ApplyFilter(OriginalImage).GetSource();
             SaveB.IsEnabled = true;
@@ -133,7 +143,8 @@ namespace one_click_fix
             filterItem.SliderVisibility = Visibility.Visible;
         }
 
-      
+
     }
+
 
 }

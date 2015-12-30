@@ -4,7 +4,7 @@ using Common;
 
 namespace Nashville
 {
-    public class Nashville : IFilter
+    public class Slumber : IFilter
     {
         public Bitmap ApplyFilter(Bitmap mask)
         {
@@ -21,9 +21,9 @@ namespace Nashville
                     float green = color.G;
                     float blue = color.B;
 
-                    red = 224f/255f*red + 31;
-                    green = 236f/255f*green;
-                    blue = 59f/255f*blue + 102;
+                    red = (255f - 48f) / 255f * red + 48;
+                    green = (255f - 38f) / 255f * green + 38;
+                    blue = (255f - 31f) / 255f * blue + 31;
                     color = Color.FromArgb(255, (int)red, (int)green, (int)blue);
                     currentMask.SetPixel(x, y, color);
                 }
