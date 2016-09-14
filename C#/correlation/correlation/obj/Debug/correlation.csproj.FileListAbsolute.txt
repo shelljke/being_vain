@@ -1,0 +1,6 @@
+C:\Users\Андрей\Documents\Programming\trunk\C#\correlation\correlation\bin\Debug\correlation.exe.config
+C:\Users\Андрей\Documents\Programming\trunk\C#\correlation\correlation\bin\Debug\correlation.exe
+C:\Users\Андрей\Documents\Programming\trunk\C#\correlation\correlation\bin\Debug\correlation.pdb
+C:\Users\Андрей\Documents\Programming\trunk\C#\correlation\correlation\obj\Debug\correlation.csprojResolveAssemblyReference.cache
+C:\Users\Андрей\Documents\Programming\trunk\C#\correlation\correlation\obj\Debug\correlation.exe
+C:\Users\Андрей\Documents\Programming\trunk\C#\correlation\correlation\obj\Debug\correlation.pdb
