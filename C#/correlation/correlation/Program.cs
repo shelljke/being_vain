@@ -13,24 +13,25 @@ namespace correlation
         static void Main(string[] args)
         {
 
-            int e = 2500;
-            List<double> A = new List<double>(e);
-            double[][] R = new double[e][];
+            int e = 150;
+            List<double> A = new List<double>();
+            double[] R = { 5, 1, 2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, 5, 7, -3, -7, 5, 6,  };
+
             Random rand = new Random();
+
             for (int i = 0; i < e; i++)
             {
-                A.Add(rand.Next());
+                A.AddRange(R);
+              //  A.Add(rand.Next());
             }
             Stopwatch stopeatch = new Stopwatch();
             stopeatch.Start();
-           List< List<double>> mods = new List<List<double>>();
+            List< List<double>> mods = new List<List<double>>();
             emd(A, mods);
             stopeatch.Stop();
 
             Console.WriteLine("  ");
             Console.WriteLine(stopeatch.ElapsedMilliseconds + " мс");
-
-
 
 
             Console.ReadKey();
@@ -117,82 +118,91 @@ namespace correlation
             return result;
         }
 
-   
-        static List<List<double>> emd(List<double> listX, List<List<double>> mods=null)
+
+        static List<List<double>> emd(List<double> listX, List<List<double>> mods = null)
         {
-            if (mods == null) mods = new List<List<double>>();
-            List<double> localMaximums, localMinimums;
-            List<double> localMeans = new List<double>();
-            List<double> interpMeans = new List<double>();
-            List<double> difference = new List<double>();
             List<double> mod = new List<double>();
-            //  List<double> difference = new List<double>();
+            while (true)
+                 {
+                if (mods == null) mods = new List<List<double>>();
+                List<double> localMaximums, localMinimums;
+                List<double> localMeans = new List<double>();
+                List<double> interpMeans = new List<double>();
+                List<double> difference = new List<double>();
+                
+                //  List<double> difference = new List<double>();
 
-            findExtremums(listX, out localMinimums, out localMaximums);
+                findExtremums(listX, out localMinimums, out localMaximums);
 
-            int n = (localMinimums.Count > localMaximums.Count) ? localMaximums.Count : localMinimums.Count;
-            for (int i = 0; i < n; i++)
-            {
-                localMeans.Add((localMaximums[i] + localMinimums[i]) / 2);
-            }
+                int n = (localMinimums.Count > localMaximums.Count) ? localMaximums.Count : localMinimums.Count;
+                for (int i = 0; i < n; i++)
+                {
+                    localMeans.Add((localMaximums[i] + localMinimums[i]) / 2);
+                }
 
-            double step = (double)listX.Count /localMeans.Count ;
+                double step = ((double)localMeans.Count - 1) / ((double)listX.Count - 1);
 
-            //интерполяция массива средних
-            Stopwatch stopeatch = new Stopwatch();
-            stopeatch.Start();
-            for (double i = 0; i < listX.Count; i += step)
-            {
-                interpMeans.Add(InterpolateLagrangePolynomial(i, localMeans, localMeans.Count));
-            }
-            stopeatch.Stop();
+                //интерполяция массива средних
+                Stopwatch stopeatch = new Stopwatch();
+                //stopeatch.Start();
+                int ii = 0;
+                for (double interpolatedX = 0; interpolatedX < listX.Count - 1; interpolatedX++)
+                {
+                    interpMeans.Add(InterpolateLagrangePolynomial(interpolatedX * step, localMeans));
+                }
+                if (interpMeans.Count < listX.Count) interpMeans.Add(localMeans.Last());
+                //   if (localMeans.Count > listX.Count) interpMeans.Remove(interpMeans.Count-1);
+                //  stopeatch.Stop();
 
-            //вычитание из исходного массива массива интерполированных средних
-            for (int i = 0; i < interpMeans.Count; i++)
-            {
-                difference.Add(listX[i] - interpMeans[i]);
-            }
-            
-            int countOfNulls = 0;
-            for (int i = 0; i < difference.Count - 1; i++)
-            {
-                if (difference[i] * difference[i + 1] <= 0) countOfNulls++;
-            }
-           
-            List<double> localMaximumsOfDifference, localMinimumsOfDifference;
-            findExtremums(difference, out localMaximumsOfDifference, out localMinimumsOfDifference);
-            n = (localMinimumsOfDifference.Count > localMaximumsOfDifference.Count) ? localMaximumsOfDifference.Count : localMinimumsOfDifference.Count;
-            double mean = 0;
-            for (int i = 0; i < n; i++)
-            {
-                mean = ((localMaximumsOfDifference[i] + localMinimumsOfDifference[i]) / 2) / (i + 1);
-            }
-            int countOfExtremums = localMaximumsOfDifference.Count + localMinimumsOfDifference.Count;
+                //вычитание из исходного массива массива интерполированных средних
+                for (int i = 0; i < interpMeans.Count; i++)
+                {
+                    difference.Add(listX[i] - interpMeans[i]);
+                }
 
-            if (Math.Abs(countOfNulls - countOfExtremums) == 1 || countOfNulls == countOfExtremums && mean <= 0.01)
-            {
-                mod = difference;
-                mods.Add(mod);
-            }   else return emd(difference, mods);
+                int countOfNulls = 0;
+                for (int i = 0; i < difference.Count - 1; i++)
+                {
+                    if (difference[i] * difference[i + 1] <= 0 || difference[i] * difference[i + 1] == 0) countOfNulls++;
+                }
 
-            List<double> signalWithoutMod = new List<double>();
-            for(int i=0;i<mod.Count;i++)
-            {
-                signalWithoutMod.Add(listX[i] - mod[i]);
+                List<double> localMaximumsOfDifference, localMinimumsOfDifference;
+                findExtremums(difference, out localMaximumsOfDifference, out localMinimumsOfDifference);
+                n = (localMinimumsOfDifference.Count > localMaximumsOfDifference.Count) ? localMaximumsOfDifference.Count : localMinimumsOfDifference.Count;
+                double mean = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    mean += ((localMaximumsOfDifference[i] + localMinimumsOfDifference[i]) / 2);
+                }
+                mean /= n;
+                int countOfExtremums = localMaximumsOfDifference.Count + localMinimumsOfDifference.Count;
+
+                if (((int)Math.Abs(countOfNulls - countOfExtremums) == 1 || countOfNulls == countOfExtremums) && (Math.Abs(mean) <= 0.6))
+                {
+                    mod = difference;
+                    mods.Add(mod);
+                }
+                else { listX = difference; continue; } 
+
+                List<double> signalWithoutMod = new List<double>();
+                for (int i = 0; i < mod.Count; i++)
+                {
+                    signalWithoutMod.Add(listX[i] - mod[i]);
+                }
+                List<double> localMaximumsOfsignalWithoutMod, localMinimumsOfsignalWithoutMod;
+                findExtremums(signalWithoutMod, out localMaximumsOfsignalWithoutMod, out localMinimumsOfsignalWithoutMod);
+                if (localMaximumsOfsignalWithoutMod.Count == 0 && localMinimumsOfsignalWithoutMod.Count == 0)
+                {
+                    return mods;
+                }
+                else listX = signalWithoutMod;
             }
-            List<double> localMaximumsOfsignalWithoutMod, localMinimumsOfsignalWithoutMod;
-            findExtremums(signalWithoutMod, out localMaximumsOfsignalWithoutMod, out localMinimumsOfsignalWithoutMod);
-            if (localMaximumsOfsignalWithoutMod.Count == 0 && localMinimumsOfsignalWithoutMod.Count == 0)
-            {
-                return mods;
-            }
-            else return emd(signalWithoutMod,mods);
         }
 
         static void findExtremums(List<double> list, out List<double> localMinimums, out List<double> localMaximums)
         {
-            List<double> maximums = new List<double>(list.Count / 2 + 1);
-            List<double> minimums = new List<double>(list.Count / 2 + 1);
+            List<double> maximums = new List<double>(list.Count / 2 + 2);
+            List<double> minimums = new List<double>(list.Count / 2 + 2);
             for (int i = 1; i < list.Count - 1; i++)
             {
                 if (list[i] > list[i - 1] && list[i] > list[i + 1])
@@ -208,24 +218,9 @@ namespace correlation
             localMinimums = minimums;
         }
 
-        static double InterpolateLagrangePolynomial(double x, List<double> xValues, int size)
-        {
-            double lagrangePol = 0;
-            var obj=new object();
-            Parallel.For(0, size, new ParallelOptions { MaxDegreeOfParallelism = 8 }, (i) =>     
-            {
-                double basicsPol = 1;
-                for (int j = 0; j < size; j++)
-                {
-                    if (j != i)
-                    {
-                        basicsPol *= (x - xValues[j]) / (xValues[i] - xValues[j]);
-                    }
-                }
-              lock(obj)  lagrangePol += basicsPol * i;
-
-            });
-            return lagrangePol;
+        static double InterpolateLagrangePolynomial(double x, List<double> xValues)
+        {         
+            return xValues[(int)x]+ (xValues[(int)x+1] - xValues[(int)x])*(x-(int)x);
         }
     }
 }
