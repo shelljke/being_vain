@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 
 namespace correlation
 {
@@ -15,11 +17,11 @@ namespace correlation
 
             int e = 150;
             List<double> A = new List<double>();
-            double[] R = { 5, 1, 2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, 5, 7, -3, -7, 5, 6,  };
+            double[] R = { 5, 1, 2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -8, -4,10};
 
             Random rand = new Random();
 
-            for (int i = 0; i < e; i++)
+          //  for (int i = 0; i < e; i++)
             {
                 A.AddRange(R);
               //  A.Add(rand.Next());
@@ -125,39 +127,46 @@ namespace correlation
             while (true)
                  {
                 if (mods == null) mods = new List<List<double>>();
-                List<double> localMaximums, localMinimums;
+                List<DoublePoint> localMaximums, localMinimums;
                 List<double> localMeans = new List<double>();
-                List<double> interpMeans = new List<double>();
+                List<double> interpMaximums = new List<double>();
+                List<double> interpMinimums = new List<double>();
                 List<double> difference = new List<double>();
                 
                 //  List<double> difference = new List<double>();
 
                 findExtremums(listX, out localMinimums, out localMaximums);
 
-                int n = (localMinimums.Count > localMaximums.Count) ? localMaximums.Count : localMinimums.Count;
-                for (int i = 0; i < n; i++)
+                double step = ((double)localMinimums.Count - 1) / ((double)listX.Count - 1);
+                for (double interpolatedX = 0; interpolatedX < listX.Count - 1; interpolatedX++)
                 {
-                    localMeans.Add((localMaximums[i] + localMinimums[i]) / 2);
+                    interpMinimums.Add(InterpolateLagrangePolynomial(interpolatedX * step, localMinimums));
                 }
-
-                double step = ((double)localMeans.Count - 1) / ((double)listX.Count - 1);
+                step = ((double)localMaximums.Count - 1) / ((double)listX.Count - 1);
+                for (double interpolatedX = 0; interpolatedX < listX.Count - 1; interpolatedX++)
+                {
+                    interpMaximums.Add(InterpolateLagrangePolynomial(interpolatedX * step, localMaximums));
+                }
+                if (interpMaximums.Count < listX.Count) interpMaximums.Add(localMaximums.Last().Y);
+                if (interpMinimums.Count < listX.Count) interpMinimums.Add(localMinimums.Last().Y);
+                for (int i = 0; i < listX.Count; i++)
+                {
+                    localMeans.Add((interpMaximums[i]+ interpMinimums[i]) / 2);
+                }
 
                 //интерполяция массива средних
                 Stopwatch stopeatch = new Stopwatch();
                 //stopeatch.Start();
                 int ii = 0;
-                for (double interpolatedX = 0; interpolatedX < listX.Count - 1; interpolatedX++)
-                {
-                    interpMeans.Add(InterpolateLagrangePolynomial(interpolatedX * step, localMeans));
-                }
-                if (interpMeans.Count < listX.Count) interpMeans.Add(localMeans.Last());
+
+               
                 //   if (localMeans.Count > listX.Count) interpMeans.Remove(interpMeans.Count-1);
                 //  stopeatch.Stop();
 
                 //вычитание из исходного массива массива интерполированных средних
-                for (int i = 0; i < interpMeans.Count; i++)
+                for (int i = 0; i < localMeans.Count; i++)
                 {
-                    difference.Add(listX[i] - interpMeans[i]);
+                    difference.Add(listX[i] - localMeans[i]);
                 }
 
                 int countOfNulls = 0;
@@ -166,15 +175,28 @@ namespace correlation
                     if (difference[i] * difference[i + 1] <= 0 || difference[i] * difference[i + 1] == 0) countOfNulls++;
                 }
 
-                List<double> localMaximumsOfDifference, localMinimumsOfDifference;
+                List<DoublePoint> localMaximumsOfDifference, localMinimumsOfDifference;
+                List<double> interpLocalMaximumsOfDifference = new List<double>();
+                List<double> interpLocalMinimumsOfDifference = new List<double>();
                 findExtremums(difference, out localMaximumsOfDifference, out localMinimumsOfDifference);
-                n = (localMinimumsOfDifference.Count > localMaximumsOfDifference.Count) ? localMaximumsOfDifference.Count : localMinimumsOfDifference.Count;
                 double mean = 0;
-                for (int i = 0; i < n; i++)
+                 step = ((double)localMinimumsOfDifference.Count - 1) / ((double)listX.Count - 1);
+                for (double interpolatedX = 0; interpolatedX < listX.Count - 1; interpolatedX++)
                 {
-                    mean += ((localMaximumsOfDifference[i] + localMinimumsOfDifference[i]) / 2);
+                    interpLocalMinimumsOfDifference.Add(InterpolateLagrangePolynomial(interpolatedX * step, localMinimumsOfDifference));
                 }
-                mean /= n;
+                step = ((double)localMaximumsOfDifference.Count - 1) / ((double)listX.Count - 1);
+                for (double interpolatedX = 0; interpolatedX < listX.Count - 1; interpolatedX++)
+                {
+                    interpLocalMaximumsOfDifference.Add(InterpolateLagrangePolynomial(interpolatedX * step, localMaximumsOfDifference));
+                }
+                if (interpLocalMinimumsOfDifference.Count < listX.Count) interpLocalMinimumsOfDifference.Add(localMinimumsOfDifference.Last().Y);
+                if (interpLocalMaximumsOfDifference.Count < listX.Count) interpLocalMaximumsOfDifference.Add(localMaximumsOfDifference.Last().Y);
+                for (int i = 0; i < listX.Count; i++)
+                {
+                    mean += ((interpLocalMinimumsOfDifference[i] + interpLocalMaximumsOfDifference[i]) / 2);
+                }
+                mean /= listX.Count;
                 int countOfExtremums = localMaximumsOfDifference.Count + localMinimumsOfDifference.Count;
 
                 if (((int)Math.Abs(countOfNulls - countOfExtremums) == 1 || countOfNulls == countOfExtremums) && (Math.Abs(mean) <= 0.6))
@@ -189,9 +211,9 @@ namespace correlation
                 {
                     signalWithoutMod.Add(listX[i] - mod[i]);
                 }
-                List<double> localMaximumsOfsignalWithoutMod, localMinimumsOfsignalWithoutMod;
-                findExtremums(signalWithoutMod, out localMaximumsOfsignalWithoutMod, out localMinimumsOfsignalWithoutMod);
-                if (localMaximumsOfsignalWithoutMod.Count == 0 && localMinimumsOfsignalWithoutMod.Count == 0)
+                List<DoublePoint> localMaximumsOfSignalWithoutMod, localMinimumsOfSignalWithoutMod;
+                findExtremums(signalWithoutMod, out localMaximumsOfSignalWithoutMod, out localMinimumsOfSignalWithoutMod);
+                if (localMaximumsOfSignalWithoutMod.Count == 0 && localMinimumsOfSignalWithoutMod.Count == 0)
                 {
                     return mods;
                 }
@@ -199,28 +221,38 @@ namespace correlation
             }
         }
 
-        static void findExtremums(List<double> list, out List<double> localMinimums, out List<double> localMaximums)
+        static void findExtremums(List<double> list, out List<DoublePoint> localMinimums, out List<DoublePoint> localMaximums)
         {
-            List<double> maximums = new List<double>(list.Count / 2 + 2);
-            List<double> minimums = new List<double>(list.Count / 2 + 2);
+            List<DoublePoint> maximums = new List<DoublePoint>(list.Count / 2 + 2);
+            List<DoublePoint> minimums = new List<DoublePoint>(list.Count / 2 + 2);
             for (int i = 1; i < list.Count - 1; i++)
             {
                 if (list[i] > list[i - 1] && list[i] > list[i + 1])
                 {
-                    maximums.Add(list[i]);
+                    maximums.Add(new DoublePoint(list[i],(double)i));
                 }
                 else if (list[i] < list[i - 1] && list[i] < list[i + 1])
                 {
-                    minimums.Add(list[i]);
+                    minimums.Add(new DoublePoint(list[i], (double)i));
                 }
             }
             localMaximums = maximums;
             localMinimums = minimums;
         }
 
-        static double InterpolateLagrangePolynomial(double x, List<double> xValues)
+        
+        static double InterpolateLagrangePolynomial(double x, List<DoublePoint> values)
         {         
-            return xValues[(int)x]+ (xValues[(int)x+1] - xValues[(int)x])*(x-(int)x);
+            return values[(int)x].Y+ ((values[(int)x+1].Y - values[(int)x].Y)*(x-values[(int)x].X))/(values[(int)x+1].X- values[(int)x].X);
         }
     }
+    struct DoublePoint 
+    {
+        public double X, Y;
+       public DoublePoint(double x, double y)
+        {
+            this.Y = y;
+            this.X = x;
+        }
+       }
 }
