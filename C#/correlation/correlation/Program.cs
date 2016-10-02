@@ -16,20 +16,15 @@ namespace correlation
         {
 
             int e = 150;
-            List<double> A = new List<double>();
-            double[] R = { 5, 1, 2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -8, -4, 10 };
+            double[] A = { 5, 1, 2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -4, -6, -2, -8, -8, -4, 10 };
 
             Random rand = new Random();
 
-            //  for (int i = 0; i < e; i++)
-            {
-                A.AddRange(R);
-                //  A.Add(rand.Next());
-            }
+           
             Stopwatch stopeatch = new Stopwatch();
             stopeatch.Start();
             List<List<double>> mods = new List<List<double>>();
-            emd(A, mods);
+            emd(A);
             stopeatch.Stop();
 
             Console.WriteLine("  ");
@@ -120,9 +115,10 @@ namespace correlation
             return result;
         }
 
-        static double[][] emd(double[] signal)
+        static double[,] emd(double[] signal)
         {
             double[] mod = new double[signal.Length];
+            double[,] mods ;
             while (true)
             {
                 double[,] localMaximums = new double[2, signal.Length/2+2];
@@ -132,11 +128,21 @@ namespace correlation
                 double[] interpMinimums = new double[signal.Length];
                 double[] difference = new double[signal.Length];
 
-                findExtremums(signal, out localMinimums, out localMaximums);
+                FindExtremums(signal, out localMinimums, out localMaximums);
+                double step = (double)(localMinimums.Length - 1)/(signal.Length - 1);
+                for (int interpolatedX = 0; interpolatedX < signal.Length - 1; interpolatedX++)
+                {
+                    interpMinimums[interpolatedX]=(InterpolateLagrangePolynomial(interpolatedX * step, localMinimums));
+                }
+                 step = (double)(localMaximums.Length - 1) / (signal.Length - 1);
+                for (int interpolatedX = 0; interpolatedX < signal.Length - 1; interpolatedX++)
+                {
+                    interpMaximums[interpolatedX] = (InterpolateLagrangePolynomial(interpolatedX * step, localMaximums));
+                }
             }
             return mods;
         }
-        static List<List<double>> emdLists(List<double> listX, List<List<double>> mods = null)
+     /*   static List<List<double>> emdLists(List<double> listX, List<List<double>> mods = null)
         {
             List<double> mod = new List<double>();
             while (true)
@@ -234,9 +240,9 @@ namespace correlation
                 }
                 else listX = signalWithoutMod;
             }
-        }
+        }*/
 
-        static void findExtremums(double[] x, out double[,] localMinimums, out double[,] localMaximums)
+        static void FindExtremums(double[] x, out double[,] localMinimums, out double[,] localMaximums)
         {
             double[,] maximums = new double[2,x.Length / 2 + 2];
             double[,] minimums = new double[2,x.Length / 2 + 2];
@@ -252,19 +258,20 @@ namespace correlation
                 }
                 else if (x[i] < x[i - 1] && x[i] < x[i + 1])
                 {
-                    maximums[0,countOfMinimums] = x[i];
-                    maximums[1,countOfMinimums] = i;
+                    minimums[0,countOfMinimums] = x[i];
+                    minimums[1,countOfMinimums] = i;
                     countOfMinimums++;
                 }
             }
+
             localMaximums = maximums;
             localMinimums = minimums;
         }
 
 
-        static double InterpolateLagrangePolynomial(double x, List<DoublePoint> values)
+        static double InterpolateLagrangePolynomial(double x, double[,] values)
         {
-            return values[(int)x].Y + ((values[(int)x + 1].Y - values[(int)x].Y) * (x - values[(int)x].X)) / (values[(int)x + 1].X - values[(int)x].X);
+            return values[0, (int)x] + ((values[0, (int)x + 1] - values[0, (int)x]) * (x - values[1,(int)x])) / (values[1,(int)x + 1] - values[1,(int)x]);
         }
     }
     struct DoublePoint
