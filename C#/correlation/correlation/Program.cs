@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -16,16 +17,25 @@ namespace correlation
         {
 
             int e = 150;
-            double[] A = { 0, 0.757710425524595, 1.27377607106028, 1.40100671229060, 1.14364543170176, 0.654279130117015, 0.171943859289168, -0.0739590442794045, 0.0442552300208481, 0.501072461819308, 1.12736337788519, 1.67724170759455, 1.92565020546421, 1.75791801049639, 1.21571522158559, 0.481142261559946, -0.194743095864767, -0.590595769826805, -0.601488179095839, -0.279243978971693, 0.189584363928795, 0.559310548511715, 0.624219211321314, 0.301779686286431, -0.333120177284167, -1.07655417639276, -1.67531501760230, -1.92640297354671, -1.75675939464985, -1.25159997665984, -0.620112108069826, -0.112152100033682, 0.0809664899333857, -0.0978101078165236, -0.549119368373945, -1.05737354097629, -1.37731685837694, -1.33254683783576, -0.886841179304860, -0.159928739256162, 0.618594713688444, 1.19894020964684, 1.40881165129938, 1.22034505542996, 0.759752770584199, 0.255878720657409, -0.0518691156767602, -0.00961210602599194, 0.389071252923232, 0.999999999999999, 1.58529231390567, 1.90772360004733, 1.82506772842276, 1.34694852307850, 0.631612330622777, -0.0761117351856164, -0.541044173064265, -0.629885036384779, -0.362840390319432, 0.0958255841128520, 0.504523921902112, 0.641816728993143, 0.395881754369059, -0.189606062741181, -0.931436625776687, -1.57836610196716, -1.90979173596501, -1.82243762604437, -1.37064611782857, -0.744290808840825, -0.193096429713795, 0.0725694588546660, -0.0349705084083903, -0.446337740345515, -0.963336613331411, -1.33856482290748, -1.37475322108006, -1.00435241642435, -0.317724803890221, 0.471290030787056, 1.10879734691485, 1.40016245607159, 1.28581289828587, 0.863459518962686, 0.347947743350473, -0.0152806022496104, -0.0487133613646897, 0.285876606387580, 0.871609054516184, 1.48250756582719, 1.87308047605247, 1.87589678008424, 1.46840064990475, 0.782419570078441, 0.0525756292806665, -0.475930131808926, -0.643559635013040, -0.438510635457839 };
+            double[] A;
+
+           // Thread.CurrentThread.CurrentCulture=new CultureInfo("en-US");
             Random rand = new Random();
-
-
+            var gg  = File.ReadAllLines("C:\\Games\\2.txt");
+            A= Array.ConvertAll(gg, Convert.ToDouble);
+            
+            ToFile(A);
             Stopwatch stopeatch = new Stopwatch();
             stopeatch.Start();
-            double[][] mods=new double[50][];
-             mods=   emd(A, mods,0,0,0);
-            var gg=Array.ConvertAll(mods[0], input =>  input.ToString());
-            File.WriteAllLines("C:\\Games\\1.txt", gg);
+            double[][] mods = new double[50][];
+            mods = emd(A, mods, 0, 0);
+
+            //           ToFile(mods[1]);
+            ToFile(mods[0]);
+           // ToFile(mods[1]);
+          //  ToFile(mods[2]);
+           // ToFile(A);
+
             stopeatch.Stop();
 
             Console.WriteLine("  ");
@@ -33,6 +43,12 @@ namespace correlation
 
 
             Console.ReadKey();
+        }
+
+        static void ToFile(double[] dd)
+        {
+            var gg = Array.ConvertAll(dd, input => input.ToString());
+            File.WriteAllLines("C:\\Games\\1.txt", gg);
         }
 
         static double correlation(double[] X, double[] Y)
@@ -124,63 +140,54 @@ namespace correlation
             return result;
         }
 
-        static double[][] emd(double[] signal, double[][]mods, int calls, int countOfMods, int countOfCalls)
+        static double[][] emd(double[] signal, double[][] mods, int calls, int countOfMods)
         {
             //int calls = 0;
             double[] mod = new double[signal.Length];
-          //  while (true)
+            //  while (true)
             {
-         
-                double[] localMaximums = new double[signal.Length / 2 + 2];
-                double[] localMinimums = new double[signal.Length / 2 + 2];
-                int[] indexesOfLocalMaximums;
-                int[] indexesOfLocalMinimums;
+
+                double[] localMaximums;
+                double[] localMinimums;
+                double[] interpMinimums = new double[signal.Length];
+                double[] interpMaximums = new double[signal.Length];
+                double[] indexesOfLocalMaximums;
+                double[] indexesOfLocalMinimums;
                 double[] localMeans = new double[signal.Length];
                 double[] difference = new double[signal.Length];
-                int x0, x1, index = 0;
                 FindExtremums(signal, out localMinimums, out localMaximums, out indexesOfLocalMinimums, out indexesOfLocalMaximums);
-                if (calls > 1000) return mods;
-                if ((indexesOfLocalMaximums.Length-1 <=1  || indexesOfLocalMinimums.Length-1 <= 1) )
+
+                if (calls > 20 || indexesOfLocalMaximums.Length <= 1 || indexesOfLocalMinimums.Length <= 1)
                 {
+                    mods[countOfMods] = signal;
                     return mods;
                 }
-                x0 = 0;
-                x1 = indexesOfLocalMinimums[0];
-                for (int interpolatedX = 0; interpolatedX < signal.Length - 1; interpolatedX++)
+                ToFile(localMinimums);
+                ToFile(localMaximums);
+                CubicSpline interp = new CubicSpline();
+                interp.BuildSpline(indexesOfLocalMinimums, localMinimums, indexesOfLocalMinimums.Length);
+                for (int interpolatedX = 0; interpolatedX < signal.Length; interpolatedX++)
                 {
-                    if (interpolatedX > x1)
-                    {
-                        index++;
-                    }
-                    x0 = indexesOfLocalMinimums[index];
-                    x1 = indexesOfLocalMinimums[index + 1];
-                    localMinimums[interpolatedX] = linear(interpolatedX, x0, x1, localMinimums[x0], localMinimums[x1]);
+                    interpMinimums[interpolatedX] = interp.Interpolate(interpolatedX);
+                }
+                ToFile(interpMinimums);
+                interp.BuildSpline(indexesOfLocalMaximums, localMaximums, indexesOfLocalMaximums.Length);
+                for (int interpolatedX = 0; interpolatedX < signal.Length; interpolatedX++)
+                {
+                    interpMaximums[interpolatedX] = interp.Interpolate(interpolatedX);
                 }
 
-                x0 = 0;
-                x1 = indexesOfLocalMaximums[0];
-                index = 0;
-                for (int interpolatedX = 0; interpolatedX < signal.Length - 1; interpolatedX++)
-                {
-                    if (interpolatedX > x1)
-                    {
-                        index++;
-                    }
-                    x0 = indexesOfLocalMaximums[index];
-                    x1 = indexesOfLocalMaximums[index + 1];
-                    localMaximums[interpolatedX] = linear(interpolatedX, x0, x1, localMaximums[x0], localMaximums[x1]);
-                }
-
+                ToFile(interpMaximums);
                 for (int i = 0; i < signal.Length; i++)
                 {
-                    localMeans[i] = (localMinimums[i] + localMaximums[i]) / 2;
+                    localMeans[i] = (interpMaximums[i] + interpMinimums[i]) / 2;
                 }
-
+                ToFile(localMeans);
                 for (int i = 0; i < signal.Length; i++)
                 {
                     difference[i] = signal[i] - localMeans[i];
                 }
-
+                ToFile(difference);
                 int countOfNulls = 0;
                 double mean = 0;
                 for (int i = 0; i < difference.Length - 1; i++)
@@ -189,63 +196,55 @@ namespace correlation
                     mean += difference[i];
                 }
                 mean /= difference.Length;
-                
                 FindExtremums(difference, out localMinimums, out localMaximums, out indexesOfLocalMinimums, out indexesOfLocalMaximums);
-                if (Math.Abs(mean) <= 0.5 && Math.Abs(indexesOfLocalMaximums.Length-1 + indexesOfLocalMinimums.Length-1 - countOfNulls) <= 50)
+                if (Math.Abs(mean) <= 0.05 && Math.Abs(indexesOfLocalMaximums.Length + indexesOfLocalMinimums.Length - countOfNulls) <= 1)
                 {
                     mods[countOfMods] = difference;
                     countOfMods++;
-                    
-                    for (int i = 0; i < signal.Length; i++)
                     {
-                        difference[i] = signal[i]-difference[i];
+                        difference = localMeans;
                     }
-                    countOfCalls = 0;
                     calls++;
-                    return emd(difference, mods, calls, countOfMods, countOfCalls);
+                    return emd(difference, mods, calls, countOfMods);
                 }
                 calls++;
-                countOfCalls++;
-                return emd(difference, mods,calls, countOfMods, countOfCalls);
-            }           
-            
+                return emd(difference, mods, calls, countOfMods);
+            }
+
         }
 
         static void FindExtremums(double[] x, out double[] localMinimums, out double[] localMaximums,
-            out int[] indexesOfLocalMinimums, out int[] indexesOfLocalMaximums)
+            out double[] indexesOfLocalMinimums, out double[] indexesOfLocalMaximums)
         {
-            double[] maximums = new double[x.Length];
-            double[] minimums = new double[x.Length];
-            int[] indexesOfMaximums = new int[x.Length/2+1 ];
-            int[] indexesOfMinimums = new int[x.Length /2+1];
+            double[] maximums = new double[x.Length / 2 + 1];
+            double[] minimums = new double[x.Length / 2 + 1];
+            double[] indexesOfMaximums = new double[x.Length / 2 + 1];
+            double[] indexesOfMinimums = new double[x.Length / 2 + 1];
 
-            int countOfMinimums = 0;
-            int countOfMaximums = 0;
-            double p = 0.005;
+            int countOfMinimums = 1;
+            int countOfMaximums = 1;
+            double p = 0.0005;
 
             for (int i = 1; i < x.Length - 1; i++)
             {
-                if ((x[i] - x[i - 1])>p && ( x[i] - x[i + 1])>p)
+                if ((x[i] - x[i - 1]) > p && (x[i] - x[i + 1]) > p)
                 {
-                    maximums[i] = x[i];
+                    maximums[countOfMaximums] = x[i];
                     indexesOfMaximums[countOfMaximums] = i;
                     countOfMaximums++;
                 }
-                else if ( (x[i - 1]- x[i]) >p && (x[i + 1] - x[i]) > p)
+                else if ((x[i - 1] - x[i]) > p && (x[i + 1] - x[i]) > p)
 
                 {
-                    minimums[i] = x[i];
-                    indexesOfMinimums[countOfMaximums] = i;
+                    minimums[countOfMinimums] = x[i];
+                    indexesOfMinimums[countOfMinimums] = i;
                     countOfMinimums++;
                 }
             }
-            Array.Resize(ref indexesOfMaximums, countOfMaximums + 1);
-            Array.Resize(ref indexesOfMinimums, countOfMinimums + 1);
-            maximums[x.Length - 1] = x[x.Length - 1];
-            minimums[x.Length - 1] = x[x.Length - 1];
-
-            indexesOfMaximums[indexesOfMaximums.Length - 1] = x.Length - 1;
-            indexesOfMinimums[indexesOfMinimums.Length - 1] = x.Length - 1;
+            Array.Resize(ref indexesOfMinimums, countOfMinimums);
+            Array.Resize(ref indexesOfMaximums, countOfMaximums);           
+            Array.Resize(ref minimums, countOfMinimums);
+            Array.Resize(ref maximums, countOfMaximums);
 
             indexesOfLocalMaximums = indexesOfMaximums;
             indexesOfLocalMinimums = indexesOfMinimums;
@@ -254,15 +253,110 @@ namespace correlation
         }
 
 
-        static public double linear(double x, double x0, double x1, double y0, double y1)
-        {
-            if ((x1 - x0) == 0)
-            {
-                return (y0 + y1) / 2;
-            }
-            return y0 + (x - x0) * (y1 - y0) / (x1 - x0);
-        }
 
+
+
+        class CubicSpline
+        {
+            SplineTuple[] splines; // Сплайн
+
+            // Структура, описывающая сплайн на каждом сегменте сетки
+            private struct SplineTuple
+            {
+                public double a, b, c, d, x;
+            }
+
+            // Построение сплайна
+            // x - узлы сетки, должны быть упорядочены по возрастанию, кратные узлы запрещены
+            // y - значения функции в узлах сетки
+            // n - количество узлов сетки
+            public void BuildSpline(double[] x, double[] y, int n)
+            {
+                // Инициализация массива сплайнов
+                splines = new SplineTuple[n];
+                for (int i = 0; i < n; ++i)
+                {
+                    splines[i].x = x[i];
+                    splines[i].a = y[i];
+                }
+                splines[0].c = splines[n - 1].c = 0.0;
+
+                // Решение СЛАУ относительно коэффициентов сплайнов c[i] методом прогонки для трехдиагональных матриц
+                // Вычисление прогоночных коэффициентов - прямой ход метода прогонки
+                double[] alpha = new double[n - 1];
+                double[] beta = new double[n - 1];
+                alpha[0] = beta[0] = 0.0;
+                for (int i = 1; i < n - 1; ++i)
+                {
+                    double hi = x[i] - x[i - 1];
+                    double hi1 = x[i + 1] - x[i];
+                    double A = hi;
+                    double C = 2.0 * (hi + hi1);
+                    double B = hi1;
+                    double F = 6.0 * ((y[i + 1] - y[i]) / hi1 - (y[i] - y[i - 1]) / hi);
+                    double z = (A * alpha[i - 1] + C);
+                    alpha[i] = -B / z;
+                    beta[i] = (F - A * beta[i - 1]) / z;
+                }
+
+                // Нахождение решения - обратный ход метода прогонки
+                for (int i = n - 2; i > 0; --i)
+                {
+                    splines[i].c = alpha[i] * splines[i + 1].c + beta[i];
+                }
+
+                // По известным коэффициентам c[i] находим значения b[i] и d[i]
+                for (int i = n - 1; i > 0; --i)
+                {
+                    double hi = x[i] - x[i - 1];
+                    splines[i].d = (splines[i].c - splines[i - 1].c) / hi;
+                    splines[i].b = hi * (2.0 * splines[i].c + splines[i - 1].c) / 6.0 + (y[i] - y[i - 1]) / hi;
+                }
+            }
+
+            // Вычисление значения интерполированной функции в произвольной точке
+            public double Interpolate(double x)
+            {
+                if (splines == null)
+                {
+                    return double.NaN; // Если сплайны ещё не построены - возвращаем NaN
+                }
+
+                int n = splines.Length;
+                SplineTuple s;
+
+                if (x <= splines[0].x) // Если x меньше точки сетки x[0] - пользуемся первым эл-тов массива
+                {
+                    s = splines[0];
+                }
+                else if (x >= splines[n - 1].x) // Если x больше точки сетки x[n - 1] - пользуемся последним эл-том массива
+                {
+                    s = splines[n - 1];
+                }
+                else // Иначе x лежит между граничными точками сетки - производим бинарный поиск нужного эл-та массива
+                {
+                    int i = 0;
+                    int j = n - 1;
+                    while (i + 1 < j)
+                    {
+                        int k = i + (j - i) / 2;
+                        if (x <= splines[k].x)
+                        {
+                            j = k;
+                        }
+                        else
+                        {
+                            i = k;
+                        }
+                    }
+                    s = splines[j];
+                }
+
+                double dx = x - s.x;
+                // Вычисляем значение сплайна в заданной точке по схеме Горнера (в принципе, "умный" компилятор применил бы схему Горнера сам, но ведь не все так умны, как кажутся)
+                return s.a + (s.b + (s.c / 2.0 + s.d * dx / 6.0) * dx) * dx;
+            }
+        }
 
         struct DoublePoint
         {
