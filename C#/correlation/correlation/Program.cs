@@ -19,22 +19,24 @@ namespace correlation
             int e = 150;
             double[] A;
 
-           // Thread.CurrentThread.CurrentCulture=new CultureInfo("en-US");
+             Thread.CurrentThread.CurrentCulture=new CultureInfo("en-US");
             Random rand = new Random();
-            var gg  = File.ReadAllLines("C:\\Games\\2.txt");
-            A= Array.ConvertAll(gg, Convert.ToDouble);
-            
-            ToFile(A);
+            var gg = File.ReadAllLines("C:\\Games\\2.txt");
+            A = Array.ConvertAll(gg, Convert.ToDouble);
+
+            //  ToFile(A);
             Stopwatch stopeatch = new Stopwatch();
             stopeatch.Start();
             double[][] mods = new double[50][];
             mods = emd(A, mods, 0, 0);
-
-            //           ToFile(mods[1]);
+              Thread.CurrentThread.CurrentCulture = new CultureInfo("ru-RU");
             ToFile(mods[0]);
-           // ToFile(mods[1]);
-          //  ToFile(mods[2]);
-           // ToFile(A);
+            ToFile(mods[1]);
+            ToFile(mods[2]);
+            ToFile(mods[3]);
+            ToFile(mods[4]);
+            ToFile(mods[5]);
+            // ToFile(A);
 
             stopeatch.Stop();
 
@@ -140,72 +142,101 @@ namespace correlation
             return result;
         }
 
+        private static double[] originalSignal;
         static double[][] emd(double[] signal, double[][] mods, int calls, int countOfMods)
         {
+            if (originalSignal == null)
+            {
+                originalSignal = signal;
+            }
             //int calls = 0;
             double[] mod = new double[signal.Length];
-            //  while (true)
+            //  while (calls<=21)
             {
 
                 double[] localMaximums;
                 double[] localMinimums;
-                double[] interpMinimums = new double[signal.Length];
-                double[] interpMaximums = new double[signal.Length];
                 double[] indexesOfLocalMaximums;
                 double[] indexesOfLocalMinimums;
-                double[] localMeans = new double[signal.Length];
-                double[] difference = new double[signal.Length];
+                
+
                 FindExtremums(signal, out localMinimums, out localMaximums, out indexesOfLocalMinimums, out indexesOfLocalMaximums);
 
-                if (calls > 20 || indexesOfLocalMaximums.Length <= 1 || indexesOfLocalMinimums.Length <= 1)
+                 if (calls == 100)
                 {
-                    mods[countOfMods] = signal;
+                    GC.Collect();
+                }
+                if (calls > 150 || indexesOfLocalMaximums.Length <= 1 || indexesOfLocalMinimums.Length <= 1)
+                {
+                    mods[countOfMods] = originalSignal;
                     return mods;
                 }
-                ToFile(localMinimums);
-                ToFile(localMaximums);
+                double[] interpMinimums = new double[signal.Length];
+                double[] interpMaximums = new double[signal.Length];
+                Stopwatch sss = new Stopwatch();
+                sss.Start();
+
+                // ToFile(localMinimums);
+                // ToFile(localMaximums);
                 CubicSpline interp = new CubicSpline();
                 interp.BuildSpline(indexesOfLocalMinimums, localMinimums, indexesOfLocalMinimums.Length);
-                for (int interpolatedX = 0; interpolatedX < signal.Length; interpolatedX++)
+
+                int min = (int)(indexesOfLocalMinimums[0] < indexesOfLocalMaximums[0]
+                    ? indexesOfLocalMaximums[0]
+                    : indexesOfLocalMinimums[0]);
+
+                int max = (int)(indexesOfLocalMinimums[indexesOfLocalMinimums.Length - 1] > indexesOfLocalMaximums[indexesOfLocalMaximums.Length - 1]
+                    ? indexesOfLocalMaximums[indexesOfLocalMaximums.Length - 1]
+                    : indexesOfLocalMinimums[indexesOfLocalMinimums.Length - 1]);
+                double[] difference = new double[max - min];
+                for (int interpolatedX = min; interpolatedX < max; interpolatedX++)
                 {
                     interpMinimums[interpolatedX] = interp.Interpolate(interpolatedX);
                 }
-                ToFile(interpMinimums);
+                 // ToFile(interpMinimums);
+
                 interp.BuildSpline(indexesOfLocalMaximums, localMaximums, indexesOfLocalMaximums.Length);
-                for (int interpolatedX = 0; interpolatedX < signal.Length; interpolatedX++)
+                for (int interpolatedX = min; interpolatedX < max; interpolatedX++)
                 {
-                    interpMaximums[interpolatedX] = interp.Interpolate(interpolatedX);
+                    interpMaximums[interpolatedX ] = interp.Interpolate(interpolatedX);
                 }
 
-                ToFile(interpMaximums);
-                for (int i = 0; i < signal.Length; i++)
+                 // ToFile(interpMaximums);
+                sss.Stop();
+                
+                for (int i = min; i < max; i++)
                 {
-                    localMeans[i] = (interpMaximums[i] + interpMinimums[i]) / 2;
+                    difference[i-min] = signal[i] - (interpMaximums[i] + interpMinimums[i]) / 2;
                 }
-                ToFile(localMeans);
-                for (int i = 0; i < signal.Length; i++)
-                {
-                    difference[i] = signal[i] - localMeans[i];
-                }
-                ToFile(difference);
+
                 int countOfNulls = 0;
                 double mean = 0;
                 for (int i = 0; i < difference.Length - 1; i++)
                 {
-                    if (Math.Abs(difference[i] * difference[i + 1]) < 0.00005 || difference[i] * difference[i + 1] < 0) countOfNulls++;
+                    if (difference[i] * difference[i + 1] < 0) countOfNulls++;
                     mean += difference[i];
                 }
                 mean /= difference.Length;
                 FindExtremums(difference, out localMinimums, out localMaximums, out indexesOfLocalMinimums, out indexesOfLocalMaximums);
-                if (Math.Abs(mean) <= 0.05 && Math.Abs(indexesOfLocalMaximums.Length + indexesOfLocalMinimums.Length - countOfNulls) <= 1)
+                if (Math.Abs(mean) <= 0.009 && Math.Abs(indexesOfLocalMaximums.Length + indexesOfLocalMinimums.Length - countOfNulls) <= 1)
                 {
                     mods[countOfMods] = difference;
-                    countOfMods++;
+                     countOfMods++;
+                    var backupLink = originalSignal;
+                    originalSignal = new double[max-min];
+                    for (int i = min; i < max; i++)
                     {
-                        difference = localMeans;
+                        originalSignal[i-min] = backupLink[i] - difference[i-min];
                     }
                     calls++;
-                    return emd(difference, mods, calls, countOfMods);
+                   /* difference = null;
+                    localMinimums = null;
+                    localMaximums = null;
+                    indexesOfLocalMinimums = null;
+                    indexesOfLocalMaximums = null;
+                    interpMaximums = null;
+                    interpMinimums = null;*/
+                    return emd(originalSignal, mods, calls, countOfMods);
                 }
                 calls++;
                 return emd(difference, mods, calls, countOfMods);
@@ -221,10 +252,19 @@ namespace correlation
             double[] indexesOfMaximums = new double[x.Length / 2 + 1];
             double[] indexesOfMinimums = new double[x.Length / 2 + 1];
 
-            int countOfMinimums = 1;
-            int countOfMaximums = 1;
-            double p = 0.0005;
-
+            int countOfMinimums = 0;
+            int countOfMaximums = 0;
+            double p = 0.00002;
+            /* if ((x[0] - x[1]) > p)
+             {
+                 maximums[0] = (x[0]+x[1])/2;
+                 countOfMaximums++;
+             }
+             else
+             {
+                 minimums[0] = (x[0] + x[1]) / 2;
+                 countOfMinimums++;
+             }*/
             for (int i = 1; i < x.Length - 1; i++)
             {
                 if ((x[i] - x[i - 1]) > p && (x[i] - x[i + 1]) > p)
@@ -241,8 +281,25 @@ namespace correlation
                     countOfMinimums++;
                 }
             }
+            //  countOfMinimums++;
+            // countOfMaximums++;
+
+
+            /*     if ((x[x.Length - 1] - x[x.Length - 2]) > p)
+                  {
+                      maximums[countOfMaximums] = (x[x.Length - 1]+ x[x.Length - 2])/2;
+                      indexesOfMaximums[countOfMaximums] = x.Length-1;
+                      countOfMaximums++;
+                  }
+                  else
+                  {
+                      minimums[countOfMinimums] = (x[x.Length - 1] + x[x.Length - 2]) / 2;
+                      indexesOfMinimums[countOfMinimums] = x.Length - 1;
+                      countOfMinimums++;
+                  }
+                  */
             Array.Resize(ref indexesOfMinimums, countOfMinimums);
-            Array.Resize(ref indexesOfMaximums, countOfMaximums);           
+            Array.Resize(ref indexesOfMaximums, countOfMaximums);
             Array.Resize(ref minimums, countOfMinimums);
             Array.Resize(ref maximums, countOfMaximums);
 
@@ -252,6 +309,21 @@ namespace correlation
             localMinimums = minimums;
         }
 
+        static double LP(double[] x, double[] y, int n, double argx)
+        {
+            double c, s = 0;
+            for (int i = 0; i < n; i++)
+            {
+                c = 1;
+                for (int j = 0; j < n; j++)
+                {
+                    if (i != j)
+                        c *= (argx - x[j]) / (x[i] - x[j]);
+                }
+                s += c * y[i];
+            }
+            return s;
+        }
 
 
 
